@@ -1,0 +1,39 @@
+Sei un estrattore dati per una systematic literature review su Quantum Natural Language Processing (focus: metodi di encoding). Devi processare TUTTI i PDF nella directory /papers/ ed estrarre per ciascuno una riga di dati strutturati.
+
+FILE DI RIFERIMENTO (leggili PRIMA di iniziare):
+- extraction_schema.txt : definizione di tutte le colonne, tipi e valori ammessi (i vocabolari per model_family ed encoding sono inline nello schema)
+- vocab_tasks.txt       : vocabolario controllato per nlp_task
+
+OUTPUT:
+- extraction_results.csv : una riga per paper, colonne ESATTAMENTE nell'ordine dello schema, quoting QUOTE_ALL, UTF-8
+- extraction_log.txt     : log append-only (timestamp, paper_id, esito, eventuale errore)
+
+PROCEDURA (rispettala rigorosamente):
+1. RESUME: se extraction_results.csv esiste già, leggi la colonna paper_id e costruisci l'insieme dei paper già processati. Processa SOLO i PDF non presenti. Se non esiste, crealo scrivendo prima la riga di header.
+2. Elenca i PDF in /papers/ in ordine alfabetico.
+2b. ELABORAZIONE A BLOCCHI: processa i paper in blocchi da 10. Al termine di ogni blocco: stampa un mini-riepilogo (paper processati nel blocco, confidence, eventuali "other:" o anomalie) e FERMATI chiedendomi conferma prima di iniziare il blocco successivo. Non proseguire mai oltre il blocco corrente senza conferma esplicita.
+3. Per ogni PDF non ancora processato:
+   a. Estrai il testo con pdftotext (fallback pypdf). Se il testo è vuoto/illeggibile, marca extraction_confidence=low, compila solo i campi bibliografici ricavabili dal filename e scrivi "unreadable PDF" in notes. Se il testo è molto lungo, leggi prioritariamente: titolo/abstract, sezioni di metodo/esperimenti, tabelle dei risultati, conclusioni/limitations/future work.
+   b. Compila TUTTI i campi dello schema. Non inventare: se un'informazione non è nel testo usa NR; se non è applicabile usa NA. Le parafrasi (stated_limitations, future_work) devono essere in inglese, concise, MAI citazioni testuali.
+   c. Per model_family, encoding e nlp_task usa SOLO i token dei vocabolari (inline nello schema o in vocab_tasks.txt); valori fuori vocabolario → "other:<nome-breve>" + nota in notes.
+   c2. qubit_scaling_tested=yes SOLO se il paper riporta esperimenti a più di un numero di qubit (tabella, plot o testo); in tal caso compila qubit_range con min-max.
+   c3. qubit_count segue la regola di decisione dello schema: (1) valore esplicito nel testo — cerca TUTTE le formulazioni ("4 qubits", "four qubits", "qubit 0,1,2,3", "n=4"), inclusi ancilla/readout; (2) derivabile da formula + numeri entrambi nel paper → calcola e marca "derived" in qubit_notes; (3) circuiti a larghezza variabile → massima larghezza riportata negli esperimenti; (4) MAI inferire da config tipiche o default di libreria. La ricerca nel testo deve coprire numeri in cifre E in lettere.
+   d. Assegna extraction_confidence: high se tutti i campi tecnici chiave (encoding, qubit, task, risultati) sono chiaramente riportati; medium se alcuni sono inferiti dal contesto; low se il testo è parziale o ambiguo.
+4. SALVATAGGIO PROGRESSIVO (critico): appendi la riga a extraction_results.csv IMMEDIATAMENTE dopo ogni paper, con apertura file in modalità append e flush/chiusura ad ogni scrittura. MAI accumulare righe in memoria per scriverle alla fine. Dopo ogni append, scrivi una riga nel log.
+5. GESTIONE ERRORI: se un paper fallisce (eccezione, timeout), logga l'errore in extraction_log.txt e PROSEGUI col successivo. Non interrompere il batch.
+6. A fine di ogni blocco e a fine batch stampa un riepilogo cumulativo: totale PDF, processati, saltati (già presenti), falliti, distribuzione di extraction_confidence.
+
+VINCOLI DI QUALITÀ:
+- Una sola riga per paper: se un paper_id risulta duplicato, salta e logga.
+- Nessun newline dentro le celle: sostituisci con "; ".
+- I campi numerici (year, qubit_count, dataset_size) devono contenere solo numeri o NR.
+- quantum_advantage_claimed=yes SOLO se gli autori lo rivendicano esplicitamente; risultati semplicemente competitivi → conditional o no.
+- encoding_bottleneck: explicit solo se il limite dell'encoding (costo di state preparation, perdita di informazione, scaling dei qubit, espressività) è discusso come tale nel testo.
+
+ARCHITETTURA (vincolo importante):
+- NON usare l'API Anthropic né alcuna API key: l'estrazione semantica la fai TU direttamente in questa sessione, leggendo il testo di ogni paper e compilando i valori dei campi.
+- Scrivi un piccolo helper Python deterministico, append_row.py, che riceve i valori dei campi (es. via JSON su stdin o argomento file) e gestisce: validazione dei token contro i vocabolari, controllo duplicati su paper_id, quoting QUOTE_ALL, append con flush immediato su extraction_results.csv, e riga di log su extraction_log.txt. Tutta la logica di resume/append/logging vive nello script; il giudizio sui contenuti vive in te.
+- Flusso per paper: pdftotext → tu leggi il testo → tu produci il JSON dei campi → chiami append_row.py → paper successivo. Un paper alla volta, mai accumulare.
+- Se la sessione si interrompe o va compattata, al riavvio la logica di resume (lettura dei paper_id già nel CSV) garantisce di riprendere dal punto giusto senza duplicati.
+
+Prima di lanciare l'intero batch, esegui un dry-run su 2 PDF e mostrami le righe prodotte per validazione dello schema.

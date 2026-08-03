@@ -1,0 +1,7 @@
+metric,value
+distinct datasets (normalized),141
+datasets used by exactly 1 paper,122
+datasets used by >=2 papers,19
+datasets used by >=4 papers,7
+papers using at least one shared (>=2 papers) dataset,50
+papers with no usable dataset name (NR/NA only),7

@@ -1,0 +1,59 @@
+dataset,author,year,encoding,model_family,qubit_count,execution,primary_metric,best_result
+Amazon reviews,"Silver, Daniel",2024,data_reuploading,vqc,7,mixed,accuracy,"79% average accuracy (real IBM hardware, noisy)"
+Amazon reviews,"Zhang, Chi",2024,amplitude,vqc,16,mixed,accuracy,100% on lambeq dataset with 1 qubit; 55-72.5% Amazon; 82.1-98.9% disambiguation on ibm_kyoto
+Amazon reviews,"Ruskanda, Fariska Zakhralativa",2025,angle,vqc,4,simulation_noiseless,accuracy,87.0% (MPNet+PCA+Angle+RealAmplitude); custom cosine-interference ansatz 86.5% in 277s (35% faster than RealAmplitude 432s)
+Amazon reviews,Shamminuj Aktar,2025,angle,quantum_transformer,4,simulation_noiseless,accuracy,+5.42% avg accuracy over classical graph transformer on Yelp/IMDB/Amazon
+Amazon reviews,"Aktar, Shamminuj",2026,amplitude,quantum_transformer,10,simulation_noiseless,accuracy,outperforms CGT with 29.4× fewer parameters; 3-5× fewer training samples to match CGT performance
+Amazon reviews,"Pham, Phan Cong Lenh",2026,angle,quantum_transformer,5,simulation_noiseless,accuracy,95.17% accuracy (IMDb)
+Amazon reviews,"Yan, Fei",2026,angle,vqc,5,simulation_noisy,accuracy,100% on MC; 80.65% RP; outperforms QSANN on Yelp/IMDb/Amazon with 10x fewer parameters
+Amazon reviews,Zhiping Liu,2026,angle,vqc,4,mixed,accuracy,BERT-QNN within ~1-2% of classical baseline across five language tasks; robust on real hardware
+IMDb,"Di Sipio, Riccardo",2022,angle,quantum_transformer,4,simulation_noiseless,accuracy,"1.0 accuracy (POS tagging, small dataset); NR (IMDB)"
+IMDb,Amine Zeguendry,2024,amplitude,quantum_kernel,11,real_hardware,accuracy,99.6% accuracy on SMS Spam (32 features)
+IMDb,"Silver, Daniel",2024,data_reuploading,vqc,7,mixed,accuracy,"79% average accuracy (real IBM hardware, noisy)"
+IMDb,"Ouamane, Nour El Houda",2025,angle,vqc,16,simulation_noiseless,accuracy; F1,NR
+IMDb,Shamminuj Aktar,2025,angle,quantum_transformer,4,simulation_noiseless,accuracy,+5.42% avg accuracy over classical graph transformer on Yelp/IMDB/Amazon
+IMDb,"Aktar, Shamminuj",2026,amplitude,quantum_transformer,10,simulation_noiseless,accuracy,outperforms CGT with 29.4× fewer parameters; 3-5× fewer training samples to match CGT performance
+IMDb,Dalydas Karanath,2026,amplitude,vqc,NR,simulation_noiseless,accuracy,0.9824 accuracy IMDB
+IMDb,"Liu, Tingyu",2026,amplitude,vqc,10,simulation_noisy,accuracy,"92.88% accuracy (SST-2, noiseless simulation)"
+IMDb,"Pham, Phan Cong Lenh",2026,angle,quantum_transformer,5,simulation_noiseless,accuracy,95.17% accuracy (IMDb)
+IMDb,"Tiblias, Federico",2026,other:hamiltonian,vqc,9,simulation_noiseless,accuracy,comparable to or better than VQC baselines on SST/IMDb/AG News
+IMDb,"Yan, Fei",2026,angle,vqc,5,simulation_noisy,accuracy,100% on MC; 80.65% RP; outperforms QSANN on Yelp/IMDb/Amazon with 10x fewer parameters
+IMDb,Zhiping Liu,2026,angle,vqc,4,mixed,accuracy,BERT-QNN within ~1-2% of classical baseline across five language tasks; robust on real hardware
+MC (lambeq),Dimitri Kartsaklis,2021,syntactic,compositional,2,simulation_noiseless,accuracy,1.0 accuracy (small 130-sentence dataset)
+MC (lambeq),"Bouakba, Yousra",2023,syntactic,compositional,NR,simulation_noiseless,accuracy,Spider 100% accuracy on MC; soft-voting ensemble 97% MC; Stairs 68% RP
+MC (lambeq),"Lorenz, Robin",2023,syntactic,compositional,7,mixed,accuracy,83.3% accuracy MC dataset (real hardware)
+MC (lambeq),Junyuan He,2024,angle,quantum_transformer,28,real_hardware,accuracy,NR
+MC (lambeq),"Silver, Daniel",2024,data_reuploading,vqc,7,mixed,accuracy,"79% average accuracy (real IBM hardware, noisy)"
+MC (lambeq),"Zhang, Chi",2024,amplitude,vqc,16,mixed,accuracy,100% on lambeq dataset with 1 qubit; 55-72.5% Amazon; 82.1-98.9% disambiguation on ibm_kyoto
+MC (lambeq),"Castillo, Jordi Del",2025,syntactic,compositional,NR,simulation_noiseless,accuracy,NR
+MC (lambeq),"Chen, Yixiong",2025,angle,vqc,7,simulation_noiseless,accuracy,96.77% accuracy RP dataset
+MC (lambeq),"Yao, Ben",2025,angle,hybrid_nn,5,simulation_noisy,GLUE score; accuracy; F1; MCC; Spearman,QCBERT-base GLUE score 69.3; SST-2 accuracy 85.1; improves over QCBERT without pre-training (62.8 GLUE)
+MC (lambeq),"Aktar, Shamminuj",2026,amplitude,quantum_transformer,10,simulation_noiseless,accuracy,outperforms CGT with 29.4× fewer parameters; 3-5× fewer training samples to match CGT performance
+MC (lambeq),"Yan, Fei",2026,angle,vqc,5,simulation_noisy,accuracy,100% on MC; 80.65% RP; outperforms QSANN on Yelp/IMDb/Amazon with 10x fewer parameters
+MC (lambeq),Zhiping Liu,2026,angle,vqc,4,mixed,accuracy,BERT-QNN within ~1-2% of classical baseline across five language tasks; robust on real hardware
+RP (lambeq),"Bouakba, Yousra",2023,syntactic,compositional,NR,simulation_noiseless,accuracy,Spider 100% accuracy on MC; soft-voting ensemble 97% MC; Stairs 68% RP
+RP (lambeq),"Lorenz, Robin",2023,syntactic,compositional,7,mixed,accuracy,83.3% accuracy MC dataset (real hardware)
+RP (lambeq),Junyuan He,2024,angle,quantum_transformer,28,real_hardware,accuracy,NR
+RP (lambeq),"Silver, Daniel",2024,data_reuploading,vqc,7,mixed,accuracy,"79% average accuracy (real IBM hardware, noisy)"
+RP (lambeq),"Chen, Yixiong",2025,angle,vqc,7,simulation_noiseless,accuracy,96.77% accuracy RP dataset
+RP (lambeq),"Yao, Ben",2025,angle,hybrid_nn,5,simulation_noisy,GLUE score; accuracy; F1; MCC; Spearman,QCBERT-base GLUE score 69.3; SST-2 accuracy 85.1; improves over QCBERT without pre-training (62.8 GLUE)
+RP (lambeq),"Aktar, Shamminuj",2026,amplitude,quantum_transformer,10,simulation_noiseless,accuracy,outperforms CGT with 29.4× fewer parameters; 3-5× fewer training samples to match CGT performance
+RP (lambeq),"Yan, Fei",2026,angle,vqc,5,simulation_noisy,accuracy,100% on MC; 80.65% RP; outperforms QSANN on Yelp/IMDb/Amazon with 10x fewer parameters
+RP (lambeq),Zhiping Liu,2026,angle,vqc,4,mixed,accuracy,BERT-QNN within ~1-2% of classical baseline across five language tasks; robust on real hardware
+SST-2,"Li, Guangxi",2024,angle,quantum_transformer,4,simulation_noiseless,accuracy,NR
+SST-2,"Baik, SeungYeop",2025,structured_feature_map,hybrid_nn,5,mixed,accuracy,89.2% accuracy SST-2 (simulator)
+SST-2,"Buonaiuto, Giuseppe",2025,amplitude,vqc,10,simulation_noiseless,accuracy,"0.945 accuracy (test set, best model, one of 4 datasets)"
+SST-2,Sang Hoon Kim,2025,data_reuploading,vqc,18,simulation_noisy,accuracy,+3.14% accuracy over comparable classical architecture on SST2
+SST-2,"Liu, Tingyu",2026,amplitude,vqc,10,simulation_noisy,accuracy,"92.88% accuracy (SST-2, noiseless simulation)"
+Yelp,"Silver, Daniel",2024,data_reuploading,vqc,7,mixed,accuracy,"79% average accuracy (real IBM hardware, noisy)"
+Yelp,Shamminuj Aktar,2025,angle,quantum_transformer,4,simulation_noiseless,accuracy,+5.42% avg accuracy over classical graph transformer on Yelp/IMDB/Amazon
+Yelp,"Aktar, Shamminuj",2026,amplitude,quantum_transformer,10,simulation_noiseless,accuracy,outperforms CGT with 29.4× fewer parameters; 3-5× fewer training samples to match CGT performance
+Yelp,"Liu, Tingyu",2026,amplitude,vqc,10,simulation_noisy,accuracy,"92.88% accuracy (SST-2, noiseless simulation)"
+Yelp,"Pham, Phan Cong Lenh",2026,angle,quantum_transformer,5,simulation_noiseless,accuracy,95.17% accuracy (IMDb)
+Yelp,"Yan, Fei",2026,angle,vqc,5,simulation_noisy,accuracy,100% on MC; 80.65% RP; outperforms QSANN on Yelp/IMDb/Amazon with 10x fewer parameters
+Yelp,Zhiping Liu,2026,angle,vqc,4,mixed,accuracy,BERT-QNN within ~1-2% of classical baseline across five language tasks; robust on real hardware
+restaurant-domain sentences (SimpleSA),"Ruskanda, Fariska Z.",2022,syntactic,compositional,NR,simulation_noiseless,accuracy,81.67% accuracy with combined SVM+SPSA classifier on restaurant sentiment
+restaurant-domain sentences (SimpleSA),Fariska Zakhralativa Ruskanda,2023,structured_feature_map,quantum_kernel,14,simulation_noiseless,accuracy,93.33% (SPSA+PCA n=14+Pauli Y YYY+rotation factor 0.9); +16.66% over classical SVM (76.67%)
+restaurant-domain sentences (SimpleSA),"Ruskanda, Fariska Zakhralativa",2023,syntactic,compositional,5,simulation_noiseless,accuracy,85.00% (SimpleSA H-CNOT-Rz-H; no noun parameterization); 85% vs IQP 72.5%
+restaurant-domain sentences (SimpleSA),"Ruskanda, Fariska Zakhralativa",2024,syntactic,compositional,NR,simulation_noisy,accuracy,Adam 97% noiseless; 70% with depolarizing + readout errors (NDRE)
+restaurant-domain sentences (SimpleSA),"Abiwardani, Muhammad Rifat",2025,syntactic,compositional,4,simulation_noiseless,accuracy,96.91% (Rx-CNOT no nouns; Rx-CRz no nouns); 13-point increase over IQP; 17-point over SimpleSA

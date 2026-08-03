@@ -1,0 +1,333 @@
+\documentclass{ieeeaccess}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+\history{Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.}
+\doi{10.1109/TQE.2025.DOI}
+ 
+\title{Text Encoding in Quantum Natural Language Processing: A Systematic Survey}
+
+\author{\uppercase{Danilo Cavaliere}\authorrefmark{1}, \uppercase{Giuseppe Fenza}\authorrefmark{1}, \uppercase{Lukasz Gajewski}\authorrefmark{1}, and \uppercase{Vincenzo Loia}\authorrefmark{1}}
+
+\address[1]{Department of Management \& Innovation Systems, Università degli Studi di Salerno, Italy}
+
+\markboth{TEXT ENCODING IN QUANTUM NATURAL LANGUAGE PROCESSING}{TEXT ENCODING IN QUANTUM NATURAL LANGUAGE PROCESSING}
+
+\corresp{Corresponding authors: Danilo Cavaliere and Lukasz Gajewski (e-mails: \{dcavaliere, lgajewski\}@unisa.it).}
+
+\begin{abstract}
+% Ovviamente provvisorio, da raffinare con Risultati.
+Quantum natural language processing (QNLP) applies quantum computational primitives (superposition, entanglement, and interference) to the representation and processing of linguistic information. Every QNLP system requires an encoding step, that is  a procedure by which discrete or distributed text representations are mapped onto qubit registers or parameterized quantum circuit inputs. This step governs model expressivity, qubit resource requirements, and trainability, hence it is rarely studied as an independent variable and no unified method has been already defined for analyzing and comapring different encodings. 
+%unifying taxonomy has been designed yet. 
+To fill the gap, this article presents a systematic literature review of text encoding strategies in QNLP, covering 125 primary studies published between 2021 and 2026 and conducted under a protocol registered before the search was executed that fixes the search strategy, eligibility criteria, screening procedure, snowball sampling, and data extraction in advance. Six encoding families are identified and characterized: angle, amplitude, categorical grammar-based (e.g., DisCoCat), IQP/ZZ feature-map, data re-uploading, and hybrid classical-quantum embedding. Their distribution is analyzed across NLP tasks, simulation and hardware environments, qubit budgets, and performance relative to classical baselines. Noiseless quantum circuit simulation dominates the literature, real hardware execution remains rare, and claimed quantum advantage is predominantly conditional or absent. The encoding bottleneck, the dimensionality mismatch between linguistic representations and near-term qubit capacities, is formalized as a basis for resource-efficient QNLP algorithm and hardware design. The corpus and extracted metadata are released publicly to support reproducibility and future meta-analyses.
+
+
+\end{abstract}
+
+\begin{keywords}
+Encoding bottleneck, parameterized quantum circuits, quantum advantage, quantum natural language processing, systematic literature review, text encoding.
+\end{keywords}
+
+\titlepgskip=-15pt
+
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+\PARstart{E}{very} quantum natural language processing (QNLP) system begins with the mandatory step of converting text into a quantum state. Before a single gate is applied or a single parameter is trained, a token, sentence, or document must be mapped onto qubits. This mapping (the encoding) determines how many qubits are consumed, how deep the resulting circuit must be, whether gradients can be computed efficiently, and whether any genuinely quantum property, such as entanglement, is brought to bear on the linguistic content. It is, in short, the most consequential design decision in the pipeline.
+
+Despite this centrality, encoding is rarely the subject of dedicated study. Most QNLP papers dispatch it in a paragraph, introduce one strategy without justification, and move on to reporting accuracy numbers. The result, after five years of accelerating publication activity, is a fragmented body of work in which dozens of encoding families coexist but there is no common approach to analyze and compare them.  In fact, there is a strong lack of unified taxonomies, systematic comparisons, or shared understanding of encoding trade-offs in literature . This survey paper aims to fill the gap by conducting an extensive systematic literature review on topic and make text encoding in QNLP the primary subject of study.
+
+\subsection{Scope}
+This survey reviews primary research that (1) applies a genuine quantum circuit (simulated noiseless, simulated noisy, or executed on real hardware) to at least one NLP task, and (2) identifies, at minimum by name or type, the encoding scheme used to map text or text-derived features onto qubits or circuit parameters. This review follows a pre-registered SLR protocol (Section~\ref{sec:method}) adapted from established guidelines for secondary studies in computer science \cite{keele2007guidelines}.
+
+Papers that use quantum-inspired or quantum-motivated classical algorithms without instantiating an actual parameterized quantum circuit are excluded. Other works excluded include survey and review papers, hardware-focused benchmarking studies that treat NLP datasets as a generic payload, and papers with insufficient methodological detail to assess the encoding scheme. The final corpus comprises 125 primary studies.
+
+The scope is limited to the encoding step; quantum circuit design, ansatz expressibility, and quantum error correction are not surveyed except where they interact directly with encoding choices. Classical NLP methods are discussed only as baselines.
+
+\subsection{Key Contributions}
+This article makes \texttt{some (N)} contributions to the study of text encoding in QNLP: 
+%Placeholder da compilare quando si hanno i contributi
+\begin{enumerate}
+\item[1)] A novel taxonomy to analyze and compare encoding methods.  
+\item[2)] A systematic review of papers on NLP tasks using/proposing different quantum encodings.
+\item[3)] A classification of the encoding techniques based on the taxonomy highlighting ....
+\item[4)]
+\item[5)]
+\end{enumerate}
+
+\subsection{Related Work}
+Several prior works survey the QNLP literature, but they do not focus on text encoding as a crucial aspect to improve performance on NLP tasks. Varmantchaonala et al.\ \cite{varmantchaonala_quantum_2024} provide the most comprehensive QNLP survey to date, covering quantum algorithms, circuit architectures, and NLP task categories; encoding appears as an implementation detail rather than as an independent variable. Guarasci et al.\ \cite{guarasci_quantum_2022} offer an early but influential overview of QNLP challenges and opportunities, cataloging approaches from theoretical quantum-advantage arguments to hardware experiments, without isolating encoding as a dimension of comparison. Widdows et al.\ \cite{widdows_quantum_2024} examine word embeddings and sequential quantum models and discuss trade-offs between representation strategies, with more attention to encoding as a design choice than any other general survey. Bouakba and Belhadef \cite{bouakba_comparative_2025} compare compositional DisCoCat models against quantum neural network approaches experimentally; their taxonomy axis (compositional versus flat-vector encoding) overlaps with the one proposed in this survey, though the scope is limited to two model families. Huzzat et al.\ \cite{huzzat_primer_2026} is the most encoding-aware prior work: it explicitly addresses the mismatch between the dimensionality of text representations and the qubit capacity of NISQ classifiers, and discusses classical compression as a prerequisite for stable training. It is, however, a conceptual primer for a single model class rather than a systematic review across the literature.
+
+This survey complements these works by treating encoding as the primary unit of analysis across 125 primary studies. Encoding family, qubit count, NLP task, execution environment, and quantum advantage claim were extracted for each study, yielding the first quantitative cross-study characterization of how text is encoded and at what resource cost.
+
+\subsection{Structure}
+The rest of the document is organized as follows: Section~\ref{sec:background} provides the background on quantum computing, compositional distributional semantics, and the role of encoding in QNLP. Section~\ref{sec:method} describes the systematic review protocol, including search strategy, inclusion and exclusion criteria. 
+%Da continuare con altre sezioni.
+
+\section{Background}
+\label{sec:background}
+
+\subsection{Quantum Computing Primitives}
+
+A quantum bit (qubit) generalizes the classical bit by occupying a superposition of basis states $|0\rangle$ and $|1\rangle$:
+\begin{equation}
+|\psi\rangle = \alpha|0\rangle + \beta|1\rangle, \quad |\alpha|^2 + |\beta|^2 = 1,
+\end{equation}
+where $\alpha, \beta \in \mathbb{C}$ are probability amplitudes. A register of $n$ qubits occupies a $2^n$-dimensional Hilbert space $\mathcal{H} = \mathbb{C}^{2^n}$, and its state is a unit vector in that space. Entanglement between qubits allows correlations with no classical counterpart. Measurement collapses the state to a basis vector, destroying superposition and yielding a classical bitstring.
+
+These properties, superposition, entanglement, and interference, are the computational primitives that QNLP seeks to bring to bear on language. Whether any of them confers a practical advantage over classical methods on NLP tasks is the central open question in the field and one of the dimensions analyzed in this survey.
+
+\subsection{Parameterized Quantum Circuits}
+
+The dominant computational model in near-term quantum machine learning is the parameterized quantum circuit (PQC), also called a variational quantum circuit \cite{cerezo2021variational}. A PQC applies a sequence of unitary gates to an initial state $|\psi_0\rangle$:
+\begin{equation}
+U(\boldsymbol{\theta}) = U_L(\boldsymbol{\theta}_L) \cdots U_1(\boldsymbol{\theta}_1),
+\end{equation}
+where $\boldsymbol{\theta} \in \mathbb{R}^p$ are trainable parameters. Measurement outcomes are summarized as expectation values $\langle O \rangle = \langle \psi_0 | U^\dagger(\boldsymbol{\theta})\, O\, U(\boldsymbol{\theta}) | \psi_0 \rangle$ that serve as model outputs. Gradients with respect to $\boldsymbol{\theta}$ are computed analytically via the parameter-shift rule \cite{mitarai2018quantum, schuld2019evaluating}, enabling optimization by standard gradient-based methods. PQCs are the circuit model underlying five of the six encoding families surveyed here; the exception is grammatical encoding, which derives circuit structure from sentence syntax rather than from a fixed ansatz.
+
+PQCs are constrained by the limits of noisy intermediate-scale quantum (NISQ) hardware \cite{preskill2018quantum}: shallow circuits, limited qubit counts, and significant gate error rates. These constraints bear directly on the encoding step, since every additional qubit or gate layer required to load a text representation consumes resources that could otherwise be used for the learning task.
+
+\subsection{Text Encoding}
+
+Text encoding is the procedure that maps a text input $x$, a token, sentence, or document, to a quantum state $|\phi(x)\rangle \in \mathcal{H}$ or to a parameter vector $\boldsymbol{\theta}(x)$ that initializes a PQC. It is the mandatory interface between classical language data and the quantum circuit. The input $x$ may be a raw token sequence, a classical embedding vector from a pre-trained model, or a parse tree carrying grammatical structure; which representation is used, and how it is loaded onto qubits, defines the encoding family.
+
+Encoding choices have cascading consequences. The number of qubits required, the depth of the state-preparation circuit, the presence or absence of linguistically meaningful entanglement, and the trainability of the resulting model all depend on this single decision. Despite this, most QNLP papers treat encoding as a fixed implementation detail rather than as a variable to be studied.
+
+\subsection{Compositional Distributional Semantics and DisCoCat}
+
+One of the two main traditions in QNLP originates in categorical linguistics. Coecke, Sadrzadeh, and Clark \cite{coecke2010mathematical} showed that the compact closed categorical structure of pregroup grammars is the same structure that governs quantum processes in Hilbert space. In a pregroup grammar, each word is assigned a grammatical type, and sentences are parsed by reducing compound types through tensor contractions. Because these reductions obey the same diagrammatic calculus as quantum teleportation steps, a grammatical parse tree translates directly into a quantum circuit: words become parameterized quantum states, and grammatical reductions become cups in a string diagram.
+
+This is the DisCoCat (Distributional Compositional Categorical) model, operationalized as an end-to-end pipeline by \cite{lorenz_qnlp_2023} and executed on near-term hardware in \cite{meichanetzidis_quantum_2021, meichanetzidis_grammar-aware_2023} via the \textsc{lambeq} toolkit. The circuit structure in DisCoCat is not fixed in advance: it is determined by the parse tree, so syntactically distinct sentences produce structurally distinct circuits. This property makes the grammatical encoding family categorically different from all other families, which treat the sentence as a flat feature vector.
+
+\subsection{Quantum Machine Learning for Text}
+
+The second tradition approaches NLP as a classification problem and applies quantum feature maps \cite{schuld2019quantum} and variational circuits \cite{cerezo2021variational} to text-derived feature vectors. Classical embeddings, word2vec, GloVe, or transformer outputs, are compressed to match available qubit counts and loaded into a PQC via rotation gates or amplitude encoding. The circuit is then trained end-to-end on labeled examples. Because this approach makes no assumptions about grammatical structure, it applies to arbitrary text inputs without a parser and scales more easily to realistic dataset sizes. Hybrid quantum--classical architectures, in which a large classical language model handles high-dimensional representation and a small quantum circuit acts as a downstream head, represent the logical endpoint of this design philosophy and have grown in prevalence since 2023.
+
+The two traditions differ not only in how they encode text but in what they claim the quantum component contributes: compositional models argue for structural alignment between grammar and quantum computation; QML models argue for expressivity or kernel separability. 
+
+\section{Review Methodology}
+\label{sec:method}
+
+\Figure[t!](topskip=0pt, botskip=0pt, midskip=0pt)[width=\textwidth]{PRISMA_Chart.jpg}{PRISMA flow diagram. Final corpus: $n = 125$ (95 from database search, 30 from snowball sampling).\label{fig:prisma}}
+
+This systematic literature review follows the guidelines for secondary studies in software engineering established by Keele and Charters \cite{keele2007guidelines}. The protocol was defined before the search was executed and covers the search strategy, eligibility criteria, screening procedure, snowball sampling, and data extraction process.
+
+\subsection{Search Strategy}
+Two complementary search queries were executed on two electronic databases (Scopus and IEEE Xplore) to provide broad coverage of both the quantum machine learning and the compositional QNLP literature. The first query targets the intersection of quantum computing or machine learning with NLP and encoding-related terms; the second targets QNLP-specific terminology including framework names (\textsc{lambeq}, DisCoCat, DisCoCirc) and categorical linguistic concepts. The searches were restricted to English-language journal articles and conference papers published between 2021 and 2026, ends included, but excluding editorials, book chapters, and erratum notices. The searches returned 269 results from Scopus and 217 from IEEE Xplore, for a combined total of 486 records. After removing 110 duplicate records, 376 unique records were obtained.
+
+\subsection{Eligibility Criteria}
+\label{sec:criteria}
+
+For paper selection, several criteria have been considered. Then, a document has been selected if and only if it met all the six inclusion eligibility criteria listed below simultaneously.  
+
+\begin{itemize}
+    \item \textit{IC1: NLP task grounding.} The method proposed in the paper is applied to, or evaluated on, at least one natural language processing task such as classification, similarity, sequence labeling, question answering, or generation.
+
+    \item \textit{IC2: Genuine quantum computation.} The method is implemented and evaluated via at least a noiseless quantum circuit simulation (exact statevector simulation or equivalent) or executed on real quantum hardware. Classical algorithms that are merely quantum-inspired, such as tensor-network models or classical approximations of quantum kernels, do not satisfy this criterion.
+
+    \item \textit{IC3: Encoding scheme identified.} The paper names or identifies at least the type of encoding used to map text or text-derived features onto qubits, quantum states, or circuit parameters. A named or typed encoding mention is sufficient; circuit diagrams or full mathematical derivations are not required.
+
+    \item \textit{IC4: Peer-reviewed or preprint venue.} Published in a peer-reviewed journal, conference, or workshop, or as a preprint with sufficient methodological detail to assess IC1--IC3.
+
+    \item \textit{IC5: Language and access.} Full text available in English and accessible for review.
+
+    \item \textit{IC6: Time window.} Published between 2021 and 2026 inclusive.
+\end{itemize}
+
+Even though a paper satisfied all the criteria listed above, it has been excluded if one of the following criteria was satisfied: 
+\begin{itemize}
+    \item \textit{EC1: No NLP application.} Quantum ML papers applied exclusively to non-text domains with no transferable text-encoding discussion.
+
+    \item \textit{EC2: Classical-only encoding.} Papers using encoding purely in the classical sense (tokenization, positional encoding, one-hot) with no quantum circuit involved.
+
+    \item \textit{EC3: Insufficient detail.} Abstracts, extended abstracts, or short papers that name an encoding but provide no formal description or reproducible detail.
+
+    \item \textit{EC4: Duplicate or superseded.} Conference version superseded by an extended journal version; only the more complete version is retained.
+
+    \item \textit{EC5: Pure hardware focus.} Papers focused solely on hardware benchmarking that use an NLP dataset only as a generic payload with no discussion of linguistic encoding properties.
+
+    \item \textit{EC6: Quantum-inspired, classical surrogate, or unverifiable simulation.} Papers that use quantum-derived mathematical formalism without instantiating an actual parameterized quantum circuit, report only classical surrogates of quantum behavior, or claim quantum simulation without providing evidence of framework or circuit use.
+
+    \item \textit{EC7: Survey or review paper.} Papers that are primarily secondary studies rather than original research contributions; these were retained as reference material and are discussed in Section~\ref{sec:introduction}.
+\end{itemize}
+
+\subsection{Screening and Selection}
+\label{sec:screening}
+
+Screening proceeded in two stages. In the first stage, all 376 records were assessed on title and abstract alone for broad topical relevance to quantum computing applied to text. No IC/EC criteria were applied at this stage; the goal was only to remove records that were clearly outside the scope of the review. This eliminated 234 records, leaving 142 reports sought for retrieval, of which 6 could not be retrieved, leaving 136 reports assessed for eligibility.
+
+In the second stage, the full text of each of the 136 reports was assessed against the complete set of inclusion and exclusion criteria defined in Section~\ref{sec:criteria}. This resulted in 95 papers included in the primary corpus. The remaining 41 retrieved reports were excluded or retained as surveys, mainly under IC2 (no genuine quantum circuit; $n = 15$), IC3 (encoding scheme not identified; $n = 6$), EC6 (quantum-inspired, classical surrogate, or unverifiable simulation; $n = 3$), and EC7 (survey or review; $n = 11$); six records were excluded under other criteria.
+
+\subsection{Snowball Sampling}
+To reduce the risk of missing relevant work not indexed by the two databases, two rounds of backward and forward snowball sampling \cite{wohlin2014guidelines} were applied to the surveys excluded under EC7. Reference lists and citing papers yielded 1222 unique candidate records. In the first stage, these were screened on title and abstract for broad topical relevance. In this way, the set was reduced to 242 reports sought for retrieval, of which 37 could not be retrieved, leaving 205 reports assessed for eligibility. In the second stage, the full text of each report was assessed against the complete IC/EC protocol. This resulted in 30 additional papers included. The remaining 175 retrieved reports were excluded or retained as surveys, mainly under IC1 (no NLP task; $n = 74$), IC2 (no genuine quantum circuit; $n = 52$), IC6 (outside the time window; $n = 20$), IC3 (encoding scheme not identified; $n = 4$), and EC7 (survey or review; $n = 22$); three records were excluded under other criteria.
+
+\subsection{Final Corpus}
+The final primary corpus comprises 125 papers: 95 from database search and 30 from snowball sampling. Fig.~\ref{fig:prisma} summarizes the selection process following the PRISMA flow diagram convention.
+
+\section{Taxonomy of Text Encoding Strategies}
+\label{sec:taxonomy}
+
+The encoding problem in QNLP is not a single operation. Depending on the study, text can enter the quantum computation as rotation parameters, as amplitudes of a prepared state, as a grammar-derived circuit, as a structured feature map, or through a more specialized interface such as repeated data injection, a hybrid neural representation, or an observable. These mechanisms are often discussed under the same term, ``encoding,'' although they make different assumptions about where linguistic information is represented and which quantum resource is being used.
+
+This section shows how these mechanisms are organized into the proposed taxonomy as shown in Table~\ref{tab:encoding_taxonomy}. The classification is based on the point at which text or text-derived features enter the quantum computation. We therefore do not classify a study by the optimizer, measurement rule, downstream classifier, or ansatz alone. These elements are treated as design choices that can be combined with an encoding category. This distinction is important because an applied QNLP pipeline is usually a combination of several decisions: a classical text representation, a quantum encoding interface, a trainable or fixed circuit, and a measurement or kernel rule.
+
+The final analyzed corpus contains 125 primary studies. Four major encoding families are observed: angle encoding ($n=51$), amplitude encoding ($n=28$), syntactic/DisCoCat encoding ($n=29$), and structured feature-map encoding ($n=9$). A smaller residual group ($n=8$) contains specialized interfaces: data re-uploading ($n=4$), hybrid classical--quantum embedding ($n=3$), and Hamiltonian/observable encoding ($n=1$). To use the taxonomy, one may first identify whether the text representation is loaded as a flat vector, imposed through linguistic structure, or used to define a kernel geometry. The next design question is whether the encoding is intended to minimize qubit count, preserve linguistic composition, define a kernel geometry, or improve trainable circuit expressivity. Not all combinations are equally practical on near-term devices. The main tradeoff is between width, depth, state-preparation cost, and the amount of linguistic structure preserved by the quantum circuit \cite{preskill2018quantum,cerezo2021variational,ruskanda_evaluating_2025}.
+
+\begin{table*}[t]
+\caption{Taxonomy of text encoding strategies in the corrected primary corpus.}
+\label{tab:encoding_taxonomy}
+\centering
+\scriptsize
+\begin{tabular}{@{}p{0.18\textwidth} p{0.09\textwidth} p{0.45\textwidth} p{0.20\textwidth}@{}}
+\hline
+\textbf{Encoding family} & \textbf{Corpus count} & \textbf{Core mechanism} & \textbf{Typical model families} \\
+\hline
+Angle encoding & 51 & Text features are mapped to single-qubit rotation parameters, typically through $R_x$, $R_y$, or $R_z$ gates. & VQC, hybrid neural, recurrent neural, quantum transformer \\
+Amplitude encoding & 28 & A normalized feature vector is loaded into the amplitudes of an $n$-qubit state in a $2^n$-dimensional Hilbert space. & VQC, quantum kernel, quantum transformer, hybrid neural \\
+Syntactic/DisCoCat encoding & 29 & Sentence grammar determines a string diagram or circuit; word meanings are attached to grammatical types and composed by reductions. & Compositional QNLP \\
+Structured feature maps & 9 & Classical text features parameterize structured circuits such as IQP, ZZFeatureMap, ZFeatureMap, PauliFeatureMap, or Pauli-Y variants. & Quantum kernel, VQC, hybrid neural, quantum transformer \\
+Data re-uploading & 4 & Input features are injected repeatedly across circuit layers, alternating data-dependent rotations with trainable transformations. & VQC, recurrent neural \\
+Hybrid embedding & 3 & A classical encoder first produces a compact text representation that is then passed to a quantum layer. & Hybrid neural, VQC \\
+Hamiltonian/observable encoding & 1 & Text-derived information is represented through Pauli-string Hamiltonians or observables rather than only through prepared quantum states. & VQC \\
+\hline
+\end{tabular}
+\end{table*}
+
+\subsection{Angle Encoding}
+\label{subsec:angle_encoding}
+
+Angle encoding is the dominant category in the corpus. In this scheme, a classical vector $\mathbf{x} = (x_1,\ldots,x_d)$ is mapped to rotation parameters,
+\begin{equation}
+|\phi(\mathbf{x})\rangle =
+\prod_{j=1}^{d'} R_{\alpha_j}(s_j(\mathbf{x})) |0\rangle^{\otimes n},
+\end{equation}
+where $R_{\alpha_j}$ is a rotation around the $x$, $y$, or $z$ axis and $s_j(\cdot)$ denotes scaling, projection, or feature selection. The input is rarely raw text. It is usually a TF-IDF vector, a word or sentence embedding, a transformer representation, or a compact feature vector produced by a preceding classical model.
+
+The main reason for the prevalence of angle encoding is implementation simplicity. It fits naturally into parameterized quantum circuits and supports the standard gradient-based training workflow used in variational quantum algorithms \cite{mitarai2018quantum,schuld2019evaluating}. It also avoids arbitrary-state preparation and is therefore convenient for small simulated or hardware-oriented experiments. Sequence, kernel, and transformer-style architectures illustrate this pattern: text-derived numerical features are directly translated into rotations and then processed by a quantum circuit \cite{day_qnet_2023,hsu_quantum_2025,hazim_hqml-nlp_2026,ruskanda_evaluating_2025}.
+
+The limitation is that the encoding cost grows with the number of retained features. A model must either use many rotations, many qubits, or repeated layers over a smaller register. Consequently, angle encoding often shifts the difficult part of the problem to classical dimensionality reduction. This makes it practical for NISQ-scale prototypes, but it also means that the quantum circuit may operate on a heavily compressed view of the linguistic input.
+
+\subsection{Amplitude Encoding}
+\label{subsec:amplitude_encoding}
+
+Amplitude encoding maps a normalized vector $\mathbf{x} \in \mathbb{R}^{2^n}$ or $\mathbb{C}^{2^n}$ to a quantum state,
+\begin{equation}
+|\phi(\mathbf{x})\rangle = \sum_{i=0}^{2^n-1} x_i |i\rangle,
+\quad \sum_i |x_i|^2 = 1.
+\end{equation}
+For NLP, the appeal is immediate. A high-dimensional sentence embedding can, in principle, be represented with logarithmically many qubits. A 768-dimensional transformer vector, for example, can be padded and normalized into a 10-qubit state. This explains why amplitude encoding is frequently paired with BERT, ELECTRA, transformer embeddings, and classical word embeddings in the corpus \cite{buonaiuto_quantum_2024,guarasci_applying_2025,cavar_old_2026,cavar_word_2025}.
+
+The strength of amplitude encoding is representational density. It allows a large vector to be stored in a small register and is especially natural when the downstream operation depends on state overlaps or inner products. SWAP-test similarity and quantum-kernel pipelines make this advantage explicit because the encoded quantum state directly represents the geometry of the normalized embedding space \cite{cavar_old_2026,cavar_word_2025,schuld2019quantum}.
+
+The difficulty is state preparation. Loading an arbitrary amplitude vector generally requires a circuit whose depth can offset the qubit savings. In many QNLP experiments, this cost is hidden behind simulator calls or high-level library routines. Such experiments remain useful for comparing representation strategies under a fixed qubit budget, but they should not be interpreted as hardware-ready evidence unless the cost of preparing the state is included. 
+
+\subsection{Syntactic and DisCoCat Encoding}
+\label{subsec:syntactic_encoding}
+
+Syntactic encoding is the characteristic interface of compositional QNLP. Instead of first reducing a sentence to a flat feature vector, the model begins with a grammatical derivation. Words are assigned grammatical types, the sentence is reduced according to a pregroup or related grammar, and the resulting string diagram is translated into a tensor network or quantum circuit \cite{coecke2010mathematical}. The \textsc{lambeq} pipeline operationalizes this construction by mapping parsed sentences to parameterized circuits \cite{lorenz_qnlp_2023}. Near-term demonstrations and sentiment-classification studies use this grammar-derived circuit structure as the main modeling principle \cite{meichanetzidis_quantum_2021,meichanetzidis_grammar-aware_2023,ruskanda_simple_2023,sreedhar_towards_2025}.
+
+This category differs from vector-loading schemes. The circuit is not only a host for numerical features; its wiring reflects syntactic composition. This gives syntactic encoding a clear interpretability advantage. Grammatical roles, reductions, and word interactions remain visible in the model structure, which explains why nearly all compositional papers in the corpus use this category.
+
+The tradeoff is flexibility. Syntactic encoding depends on parsers, grammar formalisms, and sentence structures that can be translated into manageable circuits. Many experiments therefore use short, controlled, or grammar-friendly datasets. As sentences become longer, noisier, multilingual, or document-level, the parser and circuit-growth requirements become more restrictive. Thus, syntactic encoding is the most linguistically structured category, but it is also the category that most depends on the availability of a reliable grammar-to-circuit pipeline.
+
+\subsection{Structured Feature-Map Encoding}
+\label{subsec:iqp_encoding}
+
+Structured feature maps encode data through circuits with phase rotations, Pauli operators, and entangling gates whose parameters depend on products or interactions of input features. This category includes IQP embeddings, ZZFeatureMap circuits, ZFeatureMap circuits, PauliFeatureMap variants, and specialized Pauli-Y feature maps. In quantum kernel methods, the encoded state defines an implicit feature space, and classification proceeds by estimating similarities between quantum states \cite{schuld2019quantum}. In QNLP, this approach is typically applied after the text representation has already been compressed to a small number of dimensions, as in QSVM and quantum-kernel text classifiers \cite{widdows_near-term_2024,djemmal_arabert-qc_2025,keith-norambuena_quantum_2026,mohammad_masum_hybrid_2023,baik_neural_2025,katyayan_supervised_2023}.
+
+The main benefit is that feature interactions are built into the map. Instead of using the circuit only to host features, the feature map defines the geometry in which examples are compared. This makes structured feature maps attractive when the goal is to test whether a quantum kernel provides a useful similarity space for text.
+
+The limitation is that the feature map itself becomes a strong modeling assumption. Performance depends on whether the selected interactions are relevant to the linguistic task. Moreover, as with angle encoding, the high dimensionality of NLP features usually requires classical projection before the quantum circuit. Structured feature maps therefore offer a principled kernel-oriented interface, but their usefulness depends on both feature-map design and the preceding compression step.
+
+\subsection{Other Specialized Encoding Interfaces}
+\label{subsec:other_encoding_interfaces}
+
+The remaining studies use mechanisms that are important but too sparse or heterogeneous to treat as major standalone families. Data re-uploading addresses the small-register setting by injecting input features multiple times across the depth of a circuit. Rather than loading the data once and then applying only trainable gates, the model alternates data-dependent rotations with trainable transformations. In the corpus, this appears mainly in VQC and recurrent settings, including classifier-utility studies, recurrent embedding models, and NISQ-oriented NLP systems \cite{hamilton_characterizing_2023,song_recurrent_2024,silver_lexiql_2024}. Its advantage is that expressivity can be increased without increasing the number of qubits; its drawback is that it shifts the encoding burden from width to depth.
+
+Hybrid embedding is a system-level interface rather than a single gate-level rule. A classical model, such as a transformer, recurrent network, multimodal encoder, or autoencoder, first produces a compact representation. A quantum layer then consumes this representation through angle, amplitude, or a less explicitly specified feature-injection mechanism. This pattern is practical because it allows quantum modules to be inserted into existing NLP pipelines, including emotion-recognition, vulnerability-detection, and multimodal fake-news systems \cite{castrignano_toward_2025,akter_automated_2023,bikku_quantum-enhanced_2025}. Its main challenge is attribution: if most semantic processing occurs before the quantum layer, the independent contribution of the quantum component is difficult to isolate.
+
+Hamiltonian and observable encoding is even more specialized. One primary study maps text-derived vectors to Pauli-string Hamiltonians or observables rather than preparing them as quantum states \cite{tiblias_efficient_2026}; a related corpus paper frames NLP embeddings through Hamiltonian-based hybrid representations \cite{cavar_hybrid_2025}. This changes where the loading problem appears and may avoid some state-preparation costs, but the evidence base is currently too small for a separate taxonomy family.
+
+\subsection{Taxonomic Implications}
+\label{subsec:taxonomy_implications}
+
+The taxonomy makes clear that encoding is not a neutral preprocessing choice in QNLP. It determines which linguistic information reaches the quantum circuit, how much classical compression is required, and where the main resource bottleneck appears. Angle and amplitude encodings start from numerical text representations and differ mainly in how they trade circuit width, depth, and state-preparation cost. Syntactic encoding instead gives the grammatical analysis a structural role in the circuit. Structured feature maps define the comparison space used by kernel methods, while the specialized interfaces modify these patterns through repeated data injection, classical--quantum embedding layers, or observable-based representations.
+
+This distinction matters because many cross-paper comparisons implicitly compare different views of the input rather than only different learning architectures. A VQC using compressed word or sentence vectors, a DisCoCat circuit generated from a parser, and a kernel model built around a designed feature map make different commitments about what should be preserved from the original text. Their results are therefore shaped jointly by the classical representation, the compression method, the encoding circuit, the ansatz, the measurement rule, and the execution backend.
+
+The taxonomy is therefore used in the remainder of the survey to organize the evidence, not to rank the encodings. The available studies do not yet show that any single family is generally superior across QNLP tasks. Instead, they show that the encoding stage frames the experiment itself: it defines the form of the linguistic input, constrains the feasible circuit resources, and conditions how performance, scalability, and quantum-advantage claims should be read.
+
+\section{Comparative Analysis of Encoding Families}
+\label{sec:comparative_analysis}
+
+This section uses the taxonomy to assess how far the main encoding families have developed in practice. Rather than revisiting the definition of each family, the focus is on what the corpus reveals about their use: which encodings have become standard design choices, which remain exploratory, and how strongly the reported results are supported by datasets, baselines, hardware assumptions, and scalability analysis.
+
+The analysis is based on the corrected corpus of 125 primary studies. Each study is assigned to its dominant encoding interface, although most implementations combine several steps before measurement: text representation, feature reduction, circuit encoding, a trainable or fixed quantum model, and a readout rule. This matters because an observed result is rarely attributable to the encoding alone. It often reflects the full pipeline in which the encoding is embedded.
+
+\subsection{Established Encoding Patterns}
+\label{subsec:established_encoding_patterns}
+
+The clearest recurring patterns are angle encoding, amplitude encoding, and syntactic/DisCoCat encoding. Together, they account for 108 of the 125 analyzed studies. They are not established in the same way. Their role depends strongly on the model family in which they appear. In VQC and hybrid neural models, an encoding layer usually serves as an interface between a classical feature extractor and a trainable circuit \cite{hazim_hqml-nlp_2026,mukesh_qvila_2024,yao_self-supervised_2025}. In quantum-kernel models, the encoding often defines the similarity space \cite{widdows_near-term_2024,djemmal_arabert-qc_2025,keith-norambuena_quantum_2026}. In compositional QNLP, the encoding is part of the model structure itself because grammar determines how the circuit is wired \cite{meichanetzidis_quantum_2021,meichanetzidis_grammar-aware_2023,ganguly_quantum_2022}. Fig.~\ref{fig:encoding_model_family} shows this division by crossing encoding family with model family.
+
+\Figure[t!](topskip=0pt, botskip=0pt, midskip=0pt)[width=\textwidth]{model_family_x_encoding_heatmap_counts.png}{Encoding family by model family in the final primary corpus. Cell values report the number of studies assigned to each encoding--model-family pair.\label{fig:encoding_model_family}}
+
+Angle encoding is the broadest of these patterns. It appears in 51 studies and is used across VQC, hybrid neural, recurrent, quantum-transformer, and quantum-kernel settings \cite{day_qnet_2023,hsu_quantum_2025,chen_quantum_2025,pandey_quantum_2026,pham_fitqt_2026,ruskanda_evaluating_2025}. Its function changes with the architecture. In VQC and hybrid neural models, rotation gates usually form a compact quantum layer after TF-IDF features, sentence embeddings, or transformer-derived representations. In recurrent and transformer-style models, the same mechanism is used inside sequence processing, for example to inject token or hidden-state features into quantum recurrent blocks or quantum attention-like modules. This breadth explains why angle encoding is the most common family: it is the easiest method to be included in many architectures. The cost is that the linguistic representation normally has to be reduced before the circuit, so the result depends heavily on feature selection, projection, or the preceding neural encoder.
+
+Amplitude encoding appears in 28 studies, mainly in VQC, quantum-kernel, and transformer-embedding pipelines \cite{buonaiuto_quantum_2024,guarasci_applying_2025,cavar_old_2026,cavar_word_2025}. Its strongest fit is with models that already produce dense vectors. Sentence-BERT, BERT-like, ELECTRA, or classical word embeddings can be normalized and treated as quantum states, after which the circuit or kernel compares, transforms, or classifies the resulting representation. In similarity and kernel settings, this is natural because the encoded state directly supports overlap-based comparisons. In VQC settings, it provides a compact input state for a trainable ansatz. The limitation is less visible at the modeling level than at the implementation level: loading an arbitrary embedding can be expensive, and this cost is often abstracted away in simulation.
+
+Syntactic/DisCoCat encoding is different because it is tied almost entirely to one model family. It appears in 29 studies, all of which are compositional models. In these systems, the encoding does not merely feed data into a circuit; it helps determine the circuit topology. Word meanings are parameterized, but the grammatical reduction fixes how those word circuits are connected into a sentence circuit \cite{coecke2010mathematical,lorenz_qnlp_2023,ruskanda_simple_2023}. This makes the approach more interpretable than flat vector loading, especially for sentence-level tasks where the grammar is controlled or parser-friendly. The same property limits its use outside compositional QNLP: longer, noisier, multilingual, or document-level inputs make the grammar-to-circuit step harder to scale \cite{sreedhar_towards_2025,uotila_sql2circuits_2025}.
+
+Structured feature-map encoding is less common, with nine studies, but its role is clear in the models that use it \cite{widdows_near-term_2024,djemmal_arabert-qc_2025,keith-norambuena_quantum_2026,mohammad_masum_hybrid_2023,baik_neural_2025,katyayan_supervised_2023}. It appears most often in quantum-kernel pipelines, where the feature map is not just a loading step but the definition of the kernel geometry. Some VQC and hybrid neural studies also test structured maps, but in those cases they usually serve as one candidate encoding layer among several. This makes the family narrower than angle or amplitude encoding. Its value depends on whether the chosen feature interactions are useful for the task after the text representation has already been compressed.
+
+Taken together, these patterns show a field with recognizable conventions but not yet settled evidence. The dominant encodings are widely used because they are implementable with current tools and fit existing QML workflows. That is different from showing that one family is consistently superior. Meaningful comparison still depends on details that are often outside the encoding label itself: preprocessing, dimensionality reduction, baseline selection, circuit resources, and hardware assumptions \cite{kim_quantum_2025}.
+
+\subsection{Emerging and Specialized Interfaces}
+\label{subsec:emerging_specialized_interfaces}
+
+The smaller families play a different role from the established patterns discussed above. They are not yet recurring defaults for QNLP experiments; rather, they appear when a standard vector-loading interface is awkward for the system being built \cite{silver_lexiql_2024,akter_automated_2023}. Data re-uploading is used when a small register must carry more information across the circuit depth, including classifier-utility, recurrent vulnerability-detection, NISQ text-classification, and transformer-fine-tuning settings \cite{hamilton_characterizing_2023,song_recurrent_2024,kim_quantum_2025}. Hybrid embedding appears when the quantum component is placed after a classical representation learner, as in code-analysis, social-robotics, and multimodal fake-news pipelines \cite{castrignano_toward_2025,bikku_quantum-enhanced_2025}. Hamiltonian and observable approaches go further by changing the object that carries the text-derived information, moving it into Pauli-string Hamiltonians, observables, or Hamiltonian-style representations \cite{cavar_hybrid_2025}.
+
+This makes the evidence harder to compare than in the larger encoding families. The specialized studies differ not only in encoding, but also in where the quantum part sits in the pipeline and how much work is done before the circuit is reached \cite{tiblias_efficient_2026}. In data re-uploading, the main question is whether extra depth is a useful price for reduced width. In hybrid embedding, the question is whether the quantum layer adds value beyond the classical encoder. In Hamiltonian/observable encoding, the question is whether avoiding conventional state preparation leads to a more useful interface. These are important questions, but the current corpus gives only early and uneven evidence for them.
+
+\subsection{NLP Tasks and Encoding Choice}
+\label{subsec:tasks_encodings}
+
+\Figure[t!](topskip=0pt, botskip=0pt, midskip=0pt)[width=\textwidth]{figures/encoding_by_task_family.pdf}{Encoding family by NLP task family in the final primary corpus. Studies evaluating tasks from several families are counted once per family.\label{fig:encoding_task}}
+
+\Figure[t!](topskip=0pt, botskip=0pt, midskip=0pt)[width=\textwidth]{figures/task_family_by_year.pdf}{NLP task families addressed per publication year. Each bar segment counts studies evaluating at least one task from the family.\label{fig:task_year}}
+
+To characterize what the encodings are actually used \emph{for}, the 31 raw task labels extracted from the corpus have been grouped into seven task families: sentiment classification, other classification (topic, spam, misinformation, acceptability, and similar detection tasks), similarity and disambiguation, sequence labeling, question answering and retrieval, generation and language modeling, and a residual group. In this scheme, a study that evaluates tasks from several families has been counted once in each of them.
+
+The resulting distribution is heavily skewed toward classification. In fact, ninety of the 125 studies (72\%) evaluate at least one classification task, and 80 of them (64\%) evaluate nothing else: sentiment classification appears in 47 studies and other classification variants in 53. By comparison, the task families that define much of contemporary NLP remain marginal: similarity and disambiguation appear in 13 studies, generation and language modeling in 10, question answering and retrieval in 6, and sequence labeling in 6, while machine translation, dialogue, and code generation are each represented by a single study. QNLP, as currently practiced, is therefore largely a study of small-scale text classification.
+
+Fig.~\ref{fig:encoding_task} crosses encoding family with task family, and it shows that the encodings are not distributed uniformly over this task space. Angle encoding, despite being the broadest family, is nearly absent from similarity work, where it appears in a single study; amplitude encoding, by contrast, carries that task family almost alone (6 of 13 studies), which is consistent with its natural fit to overlap- and inner-product-based comparison \cite{cavar_old_2026,cavar_word_2025}. Syntactic/DisCoCat encoding, in turn, is not confined to toy sentence classification: it also reaches disambiguation and similarity (5 studies) and question answering (2), where grammatical structure is plausibly informative. Sequence labeling, on the other hand, is almost exclusively angle-encoded (5 of 6 studies), which reflects the token-by-token injection pattern of quantum recurrent and transformer-style models. In other words, encoding choice partially tracks task structure, but the dominant driver remains the model family in which the encoding is embedded.
+
+Fig.~\ref{fig:task_year}, finally, shows the temporal development of this task space. Output grows steeply, from 2 studies in 2021 to 41 in 2025, and yet the task mix barely changes: from 2022 onward, classification accounts for between 63\% and 81\% of each year's studies, with no visible diversification trend. The absolute number of generation and language-modeling studies has risen slightly since 2024, but their share has remained flat. In short, the field is growing without broadening.
+
+\subsection{Datasets and Cross-Study Comparability}
+\label{subsec:datasets_comparability}
+
+A second lens on the corpus is provided by the datasets on which the encodings are evaluated. After naming variants have been normalized (e.g., IMDB/IMDb, or the several designations of the \textsc{lambeq} example sets), the 118 studies that name at least one dataset are found to use 141 distinct datasets, whereas 7 studies do not identify their data at all. Of these 141 datasets, 122 are used by exactly one study, only 19 are shared by two or more studies, and only 7 reach four or more: the \textsc{lambeq} MC (12 studies) and RP (9) example sets \cite{meichanetzidis_quantum_2021,lorenz_qnlp_2023}, IMDb (12), Amazon reviews (8), Yelp (7), SST-2 (5), and the restaurant-domain sentence set introduced with SimpleSA \cite{ruskanda_simple_2023} (5). In total, only 50 of the 125 studies share at least one dataset with any other study in the corpus.
+
+Two main consequences follow from this fragmentation. First, the most widely reused ``benchmarks'' in QNLP are the MC and RP sets, that is, artificial corpora of roughly 130 short sentences over vocabularies of a few dozen words, two to three orders of magnitude smaller than standard NLP benchmarks; and where established sentiment benchmarks such as IMDb or SST-2 are used, they are typically subsampled to a few hundred or a few thousand examples in order to fit simulation budgets. Second, cross-study performance comparison is possible only inside the handful of shared-dataset cells. In fact, the MC cell is the most instructive of these: it spans syntactic, angle, amplitude, and data re-uploading encodings between 2021 and 2026, with qubit budgets ranging from 2 to 28, and with reported accuracies approaching or reaching 100\%. Such near-ceiling results on a 130-sentence corpus, however, say little about relative encoding quality, and outside these cells the studies differ simultaneously in dataset, subsampling, metric, and baseline, so that no meta-analytic ranking of encoding families is currently supportable. For this reason, the per-study extraction table released with this survey is intended to make such comparisons possible as shared evaluation practice matures.
+
+\subsection{Dataset Scale and Qubit Budgets}
+\label{subsec:scale_qubits}
+
+\Figure[t!](topskip=0pt, botskip=0pt, midskip=0pt)[width=\textwidth]{figures/dataset_size_vs_qubits.pdf}{Dataset size versus qubit count for the 37 studies reporting both, colored by encoding family. The two quantities are uncorrelated ($r \approx -0.07$ between $\log_{10}$ dataset size and qubit count).\label{fig:size_qubits}}
+
+If the encoding step mediated between data scale and quantum resources, then larger datasets should tend to engage larger qubit registers. Fig.~\ref{fig:size_qubits}, however, shows that they do not. Across the 37 studies that report both quantities, dataset sizes are found to span four orders of magnitude (from 30 to 500{,}000 examples), whereas qubit counts remain confined to a narrow band (from 2 to 28, with a median of 8), and the correlation between the logarithm of dataset size and qubit count is effectively zero ($r \approx -0.07$). This decoupling is visible even at the extremes: the largest dataset in the corpus, a 500{,}000-example sentiment collection, is processed with 5 qubits \cite{rawat_mental_2026}, whereas the largest register, of 28 qubits, is applied to the 130-sentence MC set \cite{he_training_2024}.
+
+Taken together, this decoupling can be read as the clearest corpus-level signature of the encoding bottleneck. Qubit width has in fact been determined by the classical compression stage, i.e., by how many features survive projection, rather than by the linguistic problem itself, so that growth in data scale is absorbed entirely before the quantum circuit is reached. The same analysis also exposes a reporting gap that limits any resource analysis: only 80 of the 125 studies report a usable qubit count, 52 report a dataset size, and just 37 report both. For this reason, reporting both quantities, together with the dimensionality of the classical representation at the encoding interface, should become standard practice in future QNLP work.
+
+\bibliography{references}
+\bibliographystyle{IEEEtran}
+
+\EOD
+
+\end{document}

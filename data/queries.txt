@@ -1,0 +1,28 @@
+SEARCH QUERIES
+==============
+
+--- Scopus Query 1 ---
+Results: 86
+TITLE-ABS-KEY ( ( "quantum machine learning" OR "quantum computing" ) AND ( "natural language processing" OR NLP OR text ) AND ( encoding OR embedding OR "data representation" OR "feature map" ) ) AND PUBYEAR > 2020 AND PUBYEAR < 2027 AND ( EXCLUDE ( DOCTYPE , "cr" ) OR EXCLUDE ( DOCTYPE , "ch" ) OR EXCLUDE ( DOCTYPE , "bk" ) OR EXCLUDE ( DOCTYPE , "er" ) OR EXCLUDE ( DOCTYPE , "dp" ) ) AND ( LIMIT-TO ( LANGUAGE , "English" ) )
+
+--- Scopus Query 2 ---
+Results: 179
+TITLE-ABS-KEY ( "quantum natural language processing" OR qnlp OR discocat OR discocirc OR lambeq OR ( quantum AND ( "compositional semantics" OR "categorical compositional" OR "pregroup grammar" OR "string diagram" ) AND ( language OR sentence OR text ) ) ) AND PUBYEAR > 2018 AND PUBYEAR < 2027 AND ( LIMIT-TO ( LANGUAGE , "English" ) ) AND ( EXCLUDE ( DOCTYPE , "cr" ) OR EXCLUDE ( DOCTYPE , "ch" ) OR EXCLUDE ( DOCTYPE , "bk" ) OR EXCLUDE ( DOCTYPE , "er" ) OR EXCLUDE ( DOCTYPE , "dp" ) )
+
+--- IEEE Xplore Query 1 ---
+Results: 183
+("All Metadata":"quantum machine learning" OR "All Metadata":"quantum computing")
+AND
+("All Metadata":"natural language processing" OR "All Metadata":NLP OR "All Metadata":text)
+AND
+("All Metadata":encoding OR "All Metadata":embedding OR "All Metadata":"data representation" OR "All Metadata":"feature map")
+Filters: 2021-2026, English
+
+--- IEEE Xplore Query 2 ---
+Results: 38
+("All Metadata":"quantum natural language processing" OR "All Metadata":QNLP OR "All Metadata":DisCoCat OR "All Metadata":DisCoCirc OR "All Metadata":lambeq) OR ( ("All Metadata":quantum) AND ("All Metadata":"compositional semantics" OR "All Metadata":"categorical compositional" OR "All Metadata":"pregroup grammar" OR "All Metadata":"string diagram") AND ("All Metadata":language OR "All Metadata":sentence OR "All Metadata":text) )
+Filters: 2021-2026, English
+
+--- Totals ---
+Total retrieved (with duplicates): 486
+After deduplication: 376

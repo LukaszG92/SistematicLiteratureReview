@@ -1,0 +1,102 @@
+INCLUSION / EXCLUSION CRITERIA
+Review scope: Encodings in Quantum Natural Language Processing (QNLP)
+Time window: 2021-2026
+
+============================================================
+INCLUSION CRITERIA
+============================================================
+
+IC1 - NLP task grounding
+The method is applied to, or evaluated on, at least one natural language
+processing task (e.g., classification, similarity, sequence labeling,
+question answering, generation).
+
+IC2 - Genuine quantum computation
+The method is implemented and evaluated via at least a noiseless quantum
+circuit simulation (exact statevector simulation or equivalent) of an
+actual quantum model, or executed on real quantum hardware. Classical
+algorithms that are merely "quantum-inspired" - e.g., classical
+tensor-network models, classical approximations of quantum kernels, or
+math framed in quantum-probability language with no circuit simulated or
+executed - do NOT satisfy this criterion.
+
+IC3 - Encoding scheme identified
+The paper names or identifies at least the type of encoding used to map
+text or text-derived features onto qubits, quantum states, or circuit
+parameters (e.g., amplitude encoding, angle encoding, basis encoding,
+DisCoCat / pregroup grammar, IQP feature map, data re-uploading, QRAM).
+A named or typed encoding mention is sufficient; circuit diagrams or
+full mathematical derivations are not required.
+
+IC4 - Peer-reviewed or preprint venue
+Published in a peer-reviewed journal/conference/workshop, or as a
+preprint (e.g., arXiv) with sufficient methodological detail to assess
+IC1-IC3.
+
+IC5 - Language and access
+Full text available in English (or a reliable English translation) and
+accessible for full-text review (not abstract-only with no retrievable
+text).
+
+IC6 - Time window
+Published between 2021 and 2026 inclusive.
+
+============================================================
+EXCLUSION CRITERIA
+============================================================
+
+EC1 - No NLP application
+Quantum ML papers applied exclusively to non-text domains (images,
+protein/genomic data, tabular/financial data, time series, vision-
+language multimodal tasks) with no transferable text-encoding
+discussion.
+
+EC2 - Classical-only "encoding"
+Papers using "encoding" purely in the classical sense (tokenization,
+positional encoding, one-hot, byte-pair encoding) with no quantum
+circuit or quantum state involved.
+
+EC3 - Insufficient methodological detail
+Abstracts, extended abstracts, posters, or short papers (<4 pages) that
+name an encoding but provide no formal description, circuit
+specification, or reproducible detail.
+
+EC4 - Duplicate/superseded
+Conference version superseded by an extended journal version - retain
+only the more complete version; note the duplicate rather than
+double-counting.
+
+EC5 - Pure hardware/error-correction focus
+Papers focused solely on quantum hardware, error mitigation, or
+fault-tolerance benchmarking that happen to use an NLP dataset only as
+a generic benchmarking payload, with no discussion of the encoding's
+linguistic/semantic properties.
+
+EC6 - Quantum-inspired, classical surrogate, or unverifiable simulation
+The method is described as "quantum-inspired," "quantum-motivated," or
+uses quantum-derived mathematical formalism (e.g., tensor-train
+decompositions, density-matrix-style probability models), but no
+genuine quantum circuit is simulated (not even noiselessly) or run on
+hardware. This also covers results produced entirely by classical
+surrogates that approximate or emulate quantum behavior, and papers
+that claim "quantum simulation" without evidence (framework name,
+circuit specification, library used - e.g., Qiskit, PennyLane, lambeq)
+that an actual quantum circuit was simulated.
+
+EC7 - Survey / review paper
+The paper is primarily a survey, systematic review, literature review,
+scientometric study, or overview of the QNLP / QML field rather than
+an original research contribution presenting new methods, experiments,
+or results. Tutorial and primer papers also fall under this criterion.
+
+============================================================
+NOTES FOR APPLICATION
+============================================================
+- A paper must satisfy ALL applicable Inclusion Criteria (IC1-IC6) to
+  be included.
+- A paper is excluded if it meets ANY of the Exclusion Criteria above,
+  even if it otherwise satisfies the Inclusion Criteria.
+- EC6 filters out "quantum-inspired" or quantum-flavored classical work
+  that does not instantiate or execute an actual quantum circuit (IC2).
+- EC7 applies to papers retained in the corpus for context but not
+  counted as primary research contributions.

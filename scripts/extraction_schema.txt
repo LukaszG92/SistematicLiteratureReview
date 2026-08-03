@@ -1,0 +1,80 @@
+EXTRACTION SCHEMA v2 — SLR QNLP (focus: encoding)
+Ogni riga del CSV = un paper. Separatore: virgola, quoting QUOTE_ALL, encoding UTF-8.
+Valori mancanti: "NR" (not reported). Non applicabili: "NA".
+Campi multipli in una cella: separatore "; ".
+
+=== 1. IDENTIFICAZIONE ===
+paper_id            : nome file PDF senza estensione (chiave primaria, usata per il resume)
+title               : titolo completo
+first_author        : cognome primo autore
+year                : anno di pubblicazione (YYYY)
+venue               : rivista/conferenza
+venue_type          : {journal, conference, workshop, preprint, book_chapter}
+doi                 : DOI se presente, altrimenti NR
+
+=== 2. CLASSIFICAZIONE ===
+paper_type          : {experimental, theoretical, hybrid, survey, position, tool}
+model_family        : famiglia del modello principale usato/proposto:
+                      {quantum_kernel   : QSVM / quantum kernel methods,
+                       vqc              : classificatori variazionali / QNN parametrici,
+                       compositional    : DisCoCat / lambeq / modelli sintattico-compositivi,
+                       quantum_transformer : attention/transformer quantistici,
+                       recurrent_nn     : LSTM / GRU / QRNN / recurrent hybrid architectures,
+                       tensor_network   : MPS/TTN e affini,
+                       quantum_inspired : metodi quantum-inspired eseguiti classicamente,
+                       hybrid_nn        : rete classica con layer quantistico embedded,
+                       other, NA}
+                      "; " se più famiglie confrontate nello stesso paper
+nlp_task            : task affrontati; vocabolario in vocab_tasks.txt
+dataset             : nomi dataset usati; NR se nessuno
+dataset_size        : dimensione massima usata negli esperimenti (n. esempi), NR
+
+=== 3. ENCODING ===
+encoding            : encoding dei dati usato/i:
+                      {angle            : rotation/angle encoding,
+                       amplitude        : amplitude encoding,
+                       basis            : basis encoding,
+                       structured_feature_map : structured quantum feature maps (IQP, ZZFeatureMap, ZFeatureMap, PauliFeatureMap, Pauli-Y variants),
+                       data_reuploading : re-uploading,
+                       syntactic        : encoding sintattico da struttura grammaticale (DisCoCat-style),
+                       hybrid_embed     : embedding classico (BERT/word2vec/...) compresso e caricato,
+                       other:<nome>, NR}
+                      "; " se multipli; dettagli/varianti specifiche in notes
+preprocessing       : riduzione dimensionale/embedding classico a monte (es. PCA, BERT, word2vec, none, NR)
+
+=== 4. RISORSE E SCALABILITÀ ===
+qubit_count         : numero MASSIMO di qubit in un circuito ESEGUITO (intero), NR
+                      Regola di decisione (in ordine di priorità):
+                      1. valore dichiarato esplicitamente nel testo → usalo (qualsiasi formulazione:
+                         "4 qubits", "four qubits", "qubit 0,1,2,3", "n=4") — includi qubit ancilla/readout
+                      2. derivabile da formula + numeri ENTRAMBI presenti nel paper
+                         (es. n=⌈log₂(d)⌉ con d=300 dichiarato) → calcola e marca "derived" in qubit_notes
+                      3. circuiti a larghezza variabile (DisCoCat/lambeq): usa la larghezza MASSIMA
+                         riportata per gli esperimenti; se non riportata → NR con motivo
+                      4. MAI inferire/indovinare (config "tipiche", default di libreria, ecc.) → NR
+qubit_scaling_tested: {yes, no} — esperimenti eseguiti con diversi numeri di qubit?
+qubit_range         : se yes, intervallo testato (es. "2-16"), altrimenti NA
+qubit_notes         : breve spiegazione del valore di qubit_count (max 20 parole):
+                      {stated | derived: <formula> | variable-width, max reported | NR: <motivo>}
+framework           : software (Qiskit, PennyLane, lambeq, ...); "; " se multipli
+execution           : {simulation_noiseless, simulation_noisy, real_hardware, mixed, NA}
+hardware_backend    : dispositivo reale se usato, altrimenti NA
+
+=== 5. RISULTATI ===
+classical_baseline  : {yes, no}
+baseline_models     : baseline classiche usate (es. SVM-RBF, BERT), NR/NA
+primary_metric      : metrica principale (accuracy, F1, ...)
+best_result         : miglior risultato quantistico (numero + dataset, es. "0.82 accuracy SST-2")
+quantum_advantage_claimed : {yes, no, conditional} — yes SOLO se rivendicato esplicitamente
+
+=== 6. LIMITAZIONI E TREND ===
+stated_limitations  : limitazioni dichiarate dagli autori (parafrasate, max 40 parole; "; " tra items)
+scalability_discussed : {yes, no} — discussione esplicita di scalabilità del metodo/encoding
+encoding_bottleneck : {explicit, implicit, absent}
+barren_plateaus     : {discussed, mentioned, absent}
+future_work         : direzioni future dichiarate (max 25 parole, parafrasate)
+
+=== 7. QUALITÀ E META ===
+code_available      : {yes, no}
+extraction_confidence : {high, medium, low}
+notes               : osservazioni libere (max 40 parole), varianti di encoding specifiche, altrimenti NR

@@ -1,0 +1,18 @@
+VOCABOLARIO CONTROLLATO — nlp_task
+Usare ESATTAMENTE questi token; "; " tra più task. Se assente: "other:<nome-breve>".
+
+sentence_classification   : classificazione di frasi generica (incl. topic)
+sentiment_analysis        : sentiment/polarity (SST-2, IMDb, ...)
+text_classification       : classificazione documenti (AG News, ...)
+hate_speech_detection     : hate speech / offensive language
+question_answering        : QA / answer selection
+machine_translation       : traduzione
+language_modeling         : language modeling / generazione
+semantic_similarity       : similarità semantica / paraphrase / entailment
+named_entity_recognition  : NER
+word_sense_disambiguation : WSD
+information_retrieval     : IR / ranking
+misinformation_detection  : fake news / disinformation / rumor detection
+dialogue                  : sistemi di dialogo
+music_or_multimodal       : task non puramente testuali con metodi QNLP
+none                      : nessun task applicativo (paper puramente teorico)

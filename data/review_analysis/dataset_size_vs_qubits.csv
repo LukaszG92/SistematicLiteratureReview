@@ -1,0 +1,38 @@
+Author,Publication Year,encoding,size_num,qubits_num
+"Cavar, Damir; Parukola, Koushik Reddy; Graves, James Bryan; Sparks, Shane A.",2026,amplitude,666.0,12.0
+"Guarasci, Raffaele; Buonaiuto, Giuseppe; De Pietro, Giuseppe; Esposito, Massimo",2025,amplitude,9722.0,10.0
+"Buonaiuto, Giuseppe; Guarasci, Raffaele; Minutolo, Aniello; De Pietro, Giuseppe; Esposito, Massimo",2024,amplitude,9722.0,10.0
+"Djemmal, Islam; Belhadef, Hacene",2025,structured_feature_map,1800.0,10.0
+"Aktar, Shamminuj; Bärtschi, Andreas; Badawy, Abdel-Hameed A.; Eidenbenz, Stephan",2026,amplitude,1000.0,10.0
+"Ouamane, Nour El Houda; Belhadef, Hacene; Haddad, Mohammed",2025,angle,10653.0,16.0
+"Uotila, Valter",2025,syntactic,400.0,20.0
+"Buonaiuto, Giuseppe; Guarasci, Raffaele; Esposito, Massimo",2024,amplitude,4976.0,10.0
+"Karanath, Dalydas; Shankar, Udai",2025,angle,5000.0,4.0
+"Silver, Daniel; Ranjan, Aditya; Achutha, Rakesh; Patel, Tirthak; Tiwari, Devesh",2024,data_reuploading,1000.0,7.0
+"Alexander, Aaranya; Widdows, Dominic",2022,amplitude,50.0,7.0
+"Ahmad, Waseem; Prajapati, Kalpesh; JV, Kameshwar Rao",2023,angle,5000.0,10.0
+"Stein, Jonas; Christ, Ivo; Kraus, Nicolas; Mansky, Maximilian Balthasar; Müller, Robert; Linnhoff-Popien, Claudia",2023,angle,1000.0,4.0
+"Mohammad Masum, Abu Kaisar; Maurya, Anshul; Murthy, Dhruthi Sridhar; Pratibha; Mahmud, Naveed",2023,structured_feature_map,728.0,6.0
+"Rezaei, Alireza; Bastanfard, Azam",2026,angle,2037.0,6.0
+"Ganguly, Srinjoy; Morapakula, Sai Nandan; Coronado, Luis Miguel Pozo",2022,syntactic,130.0,7.0
+"Ruskanda, Fariska Zakhralativa; Abiwardani, Muhammad Rifat; Syafalni, Infall; Larasati, Harashta Tatimma; Mulyawan, Rahmat",2023,syntactic,270.0,5.0
+"Sreedhar, B; Pathapati, Saroja; Krishna, S Vineela; Ramachandrapuram, Pavitra; Kumar M, V T Ram Pavan; Kumar, Gangu Vijay",2025,syntactic,50.0,10.0
+"Ruskanda, Fariska Zakhralativa; Kurniawan, Farizki; Syafalni, Infall",2025,angle,1000.0,4.0
+"Abiwardani, Muhammad Rifat; Ruskanda, Fariska Zakhralativa; Syafalni, Infall; Mulyawan, Rahmat; Higo, Akio",2025,syntactic,886.0,4.0
+"Abbaszadeh, Mina; Zomorodi, Mariam; Sadrzadeh, Mehrnoosh; Salari, Vahid; Kurian, Philip",2026,syntactic,160.0,13.0
+"Kesiku, Cyrille YetuYetu; Garcia-Zapirain, Begonya",2025,angle,3721.0,8.0
+"Meichanetzidis, Konstantinos; Toumi, Alexis; de Felice, Giovanni; Coecke, Bob",2023,syntactic,30.0,2.0
+"Sun, Ling; Sullivan, Peter; Martin, Michael; Zhou, Yun",2026,syntactic,100.0,11.0
+"Lorenz, Robin; Pearson, Anna; Meichanetzidis, Konstantinos; Kartsaklis, Dimitri; Coecke, Bob",2023,syntactic,130.0,7.0
+"Buonaiuto, Giuseppe; Guarasci, Raffaele; De Pietro, Giuseppe; Esposito, Massimo",2025,amplitude,9700.0,10.0
+"Kumar, Rocky; Kumar, Gaurav; Saxena, Rakesh Kumar",2026,angle,6000.0,4.0
+"Katyayan, Pragya; Joshi, Nisheeth",2023,structured_feature_map,1460.0,11.0
+"Rawat, Keshav Singh; Pandey, Gaurav; Sharma, Tarun",2026,angle,500000.0,5.0
+"Rajashekharaiah, K.M.M.; Chickerur, Satyadhyan; Hegde, Goutam; Bhat, Subrahmanya L.; Sali, Shubham Annappa",2023,syntactic,125.0,3.0
+"Kesiku, Cyrille YetuYetu; Garcia-Zapirain, Begonya; Elmaghraby, Adel S.",2026,angle,835.0,8.0
+Junyuan He; Yin Kan; Cheng Xue,2024,angle,130.0,28.0
+Wenbo Qiao; Peng Zhang; Jiaming Zhao; Chang Yang,2024,amplitude,16309.0,13.0
+Fariska Zakhralativa Ruskanda; Muhammad Rifat Abiwardani; Rahmat Mulyawan; Infall Syafalni; Harashta Tatimma Larasati,2023,structured_feature_map,280.0,14.0
+Dharaniraj VM; Jayasuriya R; Sivasankaramoorthy R; Stephen T; Abirami Murugappan,2026,angle,10662.0,4.0
+Wenduan Xu; Stephen R. L. Clark; Douglas Brown; Gabriel Matos; Konstantinos Meichanetzidis,2024,angle,10662.0,4.0
+Dimitri Kartsaklis; Ian Fan; Richie Yeung; Anna Pearson; Robin Lorenz; Alexis Toumi; Giovanni de Felice; Konstantinos Meichanetzidis; Stephen Clark; Bob Coecke,2021,syntactic,130.0,2.0

@@ -1,0 +1,142 @@
+dataset,papers
+IMDb,12
+MC (lambeq),12
+RP (lambeq),9
+Amazon reviews,8
+Yelp,7
+SST-2,5
+restaurant-domain sentences (SimpleSA),5
+20 Newsgroups,3
+ItaCoLa,3
+SMS Spam Collection,3
+synthetic tasks,3
+AG News,2
+Rotten Tomatoes,2
+SARD,2
+SICK,2
+SST-5,2
+SentiPolc,2
+Twitter US Airline Sentiment,2
+UCI ML Drug Review,2
+9 code-mixed datasets,1
+ADS-B,1
+AI-GA,1
+ASTD (Arabic Sentiment Twitter Dataset),1
+ATCOSIM,1
+Arabic YouTube sarcasm detection dataset,1
+BBC News,1
+BERT word vectors,1
+BOOKCORPUS,1
+Bengali news sentiment,1
+Bengali text classification datasets (2 datasets),1
+CMU-MOSEI,1
+CMU-MOSI,1
+CNews10k,1
+CWE-119 subset,1
+Celebrity Faces,1
+ChatGPT-generated financial sentences,1
+Chinese sentiment dataset,1
+CoLA,1
+ColBERT,1
+Coronavirus Tweets Dataset (CVTD),1
+Cuban news corpus,1
+Custom Aramaic corpus,1
+Custom musical compositions dataset,1
+Debian Linux,1
+ECP-CANDLE P3B3 (cancer pathology reports),1
+English Wikipedia,1
+English-Hindi SentiMix,1
+English-Persian sentence pairs,1
+English-Spanish parallel corpus,1
+FB15k-237,1
+FakeNewsNet,1
+"GLUE (MNLI, QNLI, QQP, RTE, SST-2, MRPC, CoLA, STS-B)",1
+General Sentimental Tweets Dataset (GSTD),1
+GloVe,1
+GoEmotions,1
+HAGT-1M,1
+HARD Arabic hotel reviews,1
+HFM,1
+HWAI,1
+IAC-V1,1
+IAC-V2,1
+IEMOCAP,1
+IFND,1
+IMDb-SQL (SQL2Circuits),1
+Indiana University Chest X-ray Collection + MIMIC-IV radiology reports,1
+KDEF,1
+Kaggle FIFA World Cup 2022 tweets,1
+Kaggle Quantum Programming dataset,1
+Kinetics (subset),1
+LIAR,1
+LIAR-PLUS,1
+MADELON,1
+MELD,1
+MIMIC-III discharge summaries,1
+MIMIC-IV chest radiography reports,1
+MSRA,1
+MVSA-Multiple,1
+MVSA-Single,1
+Martinican Creole token dataset,1
+Memotion,1
+Mustard,1
+NVD,1
+NaturalQuestions,1
+PAWS,1
+POS tagging benchmark (dataset name NR),1
+Prolog benchmark,1
+Reddit RSDD (Self-Reported Depression Diagnosis),1
+SATE IV Juliet,1
+SST,1
+STS,1
+SelQA,1
+SemCor 3.0,1
+Senseval-3,1
+Sentiment140,1
+SimLex-999 (666 noun pairs),1
+Smish (Bangla SMS),1
+StackOverflow,1
+TREC,1
+The Black Swan generated steganographic text dataset,1
+The Gift of the Magi (O. Henry short story),1
+TripAdvisor,1
+TriviaQA,1
+Twitter Sentiment,1
+Twitter hate speech,1
+Twitter tweet dataset,1
+UIT-VSFC,1
+UMSA-U,1
+VQA v2,1
+WN18RR,1
+Wikispeedia,1
+WordNet,1
+Yelp Review Polarity,1
+YouTube-8M,1
+artificial movie-review dataset,1
+code-mixed social media,1
+code-mixed social media dataset,1
+compositional image captioning dataset,1
+compound,1
+cooking vs computing small text,1
+custom Chinese sentence corpus,1
+custom Persian poetry humor dataset,1
+custom Winograd-inspired pronoun resolution dataset,1
+custom hand-crafted sentences,1
+custom intermediate dataset,1
+"custom noun/verb disambiguation set (18+32 nouns, 18 verbs)",1
+custom relative pronoun corpus K16/K30,1
+custom simple sentence classification dataset,1
+custom topic classification dataset,1
+custom word-topic datasets,1
+fastText,1
+known benchmark datasets,1
+lambeq artificial examples,1
+manually curated Hindi sentence dataset,1
+movie reviews (custom 50-example),1
+multilingual Twitter,1
+product reviews (dataset name not specified),1
+pronoun resolution dataset (144 sentence pairs),1
+public GitHub C/C++ functions,1
+real-world multimodal sentiment analysis datasets,1
+two small text corpora,1
+word analogy datasets,1

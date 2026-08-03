@@ -1,0 +1,7 @@
+model_family,angle,syntactic,amplitude,structured_feature_map,data_reuploading,hybrid_embed,other:hamiltonian
+vqc,47.6,0.0,35.7,2.4,7.1,4.8,2.4
+compositional,0.0,100.0,0.0,0.0,0.0,0.0,0.0
+hybrid_nn,66.7,0.0,20.0,6.7,0.0,6.7,0.0
+quantum_transformer,64.3,0.0,28.6,7.1,0.0,0.0,0.0
+quantum_kernel,15.4,0.0,38.5,46.2,0.0,0.0,0.0
+recurrent_nn,83.3,0.0,8.3,0.0,8.3,0.0,0.0
