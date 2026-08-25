@@ -1,0 +1,31 @@
+# External (non-corpus) citations allowed in tqe.tex.
+# One bib key per line; everything after '#' is the justification.
+# Any key cited in the manuscript that is neither a corpus paper
+# (data/p4_final_corpus_analyzed.csv) nor listed here violates Rule 2
+# (checked by: python scripts/generate_slr_tables.py audit).
+
+# --- Methodological guidelines ---
+keele2007guidelines        # Keele & Charters SLR guidelines; defines the review protocol itself
+wohlin2014guidelines       # Wohlin snowball-sampling guidelines; defines the snowball procedure
+
+# --- Foundational quantum / QNLP references needed to define the object of study ---
+coecke2010mathematical     # DisCoCat foundational paper; defines the compositional encoding family
+cerezo2021variational      # Standard VQC/variational-algorithms reference; defines the PQC model
+mitarai2018quantum         # Parameter-shift rule (origin); background for PQC training
+schuld2019evaluating       # Parameter-shift rule (formalization); background for PQC training
+schuld2019quantum          # Quantum feature maps / kernels; defines the feature-map encoding family
+preskill2018quantum        # NISQ definition; frames the hardware constraints the bottleneck refers to
+
+# --- Prior surveys / secondary studies retained as contextual references (screening EC7) ---
+chen_survey_2024           # Prior QNLP survey; Related Work positioning
+pallavi_quantum_2025       # Prior QNLP review; Related Work positioning
+varmantchaonala_quantum_2024  # Most comprehensive prior QNLP survey; Related Work positioning
+guarasci_quantum_2022      # Early QNLP overview; Related Work positioning
+widdows_quantum_2024       # Prior QNLP survey (KI 2024); Related Work positioning
+huzzat_primer_2026         # Encoding-aware primer; Related Work positioning
+bouakba_comparative_2025   # Comparative DisCoCat-vs-QNN study; Related Work positioning (screened out, cited as context)
+
+# --- TQE survey precedents (Task E additions; Related Work positioning only) ---
+kusyk2021survey            # TQE survey precedent: quantum circuit compilation for NISQ
+egger2020quantum           # TQE survey precedent: quantum computing for finance
+abane2025entanglement      # TQE survey precedent: entanglement routing in quantum networks
