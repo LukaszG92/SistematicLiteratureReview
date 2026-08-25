@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex tqe"] 1787661435.87277 "tqe.aux" "tqe.bbl" "tqe" 1787661437.36491 0
+["bibtex tqe"] 1787661518.14425 "tqe.aux" "tqe.bbl" "tqe" 1787661519.66321 0
   "./references.bib" 1787659809.79394 280501 5624a687f247d4c0531c5881a5f60700 ""
   "C:/Users/lukas/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "tqe.aux" 1787661436.70935 32141 fb17a12ddd6250b0c43faa9a6902a29c "pdflatex"
+  "tqe.aux" 1787661519.00005 32139 b3f8bc8cac19fc240059a6a66b44d159 "pdflatex"
   (generated)
   "tqe.bbl"
   "tqe.blg"
   (rewritten before read)
-["pdflatex"] 1787661436.11231 "tqe.tex" "tqe.pdf" "tqe" 1787661437.36567 0
+["pdflatex"] 1787661518.39162 "tqe.tex" "tqe.pdf" "tqe" 1787661519.66405 0
   "C:/Users/lukas/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1785779805.3794 83817 bb9b5e2d493a215a9493ee71d323406e ""
   "C:/Users/lukas/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1772639891.9049 13333486 78efa4f582e9b071f329c045b45cca37 ""
   "C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 1194fb36dfcb11d9ae9802f2b00b60a3 ""
@@ -123,9 +123,9 @@
   "figures/model_family_by_year.pdf" 1785768443.88814 15276 0e73ed4d2cb5ad4e7d8cad0d8580c3c4 ""
   "ieeeaccess.cls" 1785762933.16741 43839 3abf959902254cbaf82e6ce14f087bf5 ""
   "notaglineLogo.png" 1785762933.16741 19931 35cd4679a050bafc83db307234e4354a ""
-  "tqe.aux" 1787661436.70935 32141 fb17a12ddd6250b0c43faa9a6902a29c "pdflatex"
-  "tqe.bbl" 1787661436.05387 58622 7cda9e8309bacc3e287176b05f870f4d "bibtex tqe"
-  "tqe.tex" 1787661425.33396 150549 e2b31ef6e58d74892018f9fef5b19597 ""
+  "tqe.aux" 1787661519.00005 32139 b3f8bc8cac19fc240059a6a66b44d159 "pdflatex"
+  "tqe.bbl" 1787661518.32995 58622 7cda9e8309bacc3e287176b05f870f4d "bibtex tqe"
+  "tqe.tex" 1787661507.23795 150055 934c41950372c0dd3f15f78f312c00e6 ""
   (generated)
   "tqe.aux"
   "tqe.log"
