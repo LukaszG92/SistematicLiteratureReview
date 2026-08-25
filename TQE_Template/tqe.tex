@@ -50,18 +50,19 @@ Papers that use quantum-inspired or quantum-motivated classical algorithms witho
 The scope is limited to the encoding step; quantum circuit design, ansatz expressibility, and quantum error correction are not surveyed except where they interact directly with encoding choices. Classical NLP methods are discussed only as baselines.
 
 \subsection{Key Contributions}
-This article makes \texttt{some (N)} contributions to the study of text encoding in QNLP: 
-%Placeholder da compilare quando si hanno i contributi
+This article makes five contributions to the study of text encoding in QNLP:
 \begin{enumerate}
-\item[1)] A novel taxonomy to analyze and compare encoding methods.
-\item[2)] A systematic review of papers on NLP tasks using/proposing different quantum encodings.
-\item[3)] A classification of the encoding techniques based on the taxonomy highlighting ....
-\item[4)]
-\item[5)]
+\item[1)] A novel taxonomy of text encoding strategies, organized by the point at which text enters the quantum computation, covering six encoding families and their specialized variants.
+\item[2)] A pre-registered systematic review of 125 primary studies applying or proposing quantum text encodings across NLP tasks, conducted under the Keele and Charters guidelines.
+\item[3)] A formal analysis framework, an explicit classification instrument with fixed dimensions, closed value vocabularies, and decision rules, that operationalizes the taxonomy and extends the process-oriented SLR guidelines with a domain-specific comparison instrument.
+\item[4)] A quantitative cross-study characterization of the corpus under this framework: encoding-by-model-family, temporal, task-fit, and experimental-rigor analyses, with all counts regenerable from the released extraction sheet.
+\item[5)] A corpus-derived set of seven open challenges, including a formal statement of the encoding bottleneck, and an actionable agenda for future work, together with the public release of the corpus and extracted metadata.
 \end{enumerate}
 
 \subsection{Related Work}
 Several prior works survey the QNLP literature, but they do not focus on text encoding as a crucial aspect to improve performance on NLP tasks. Varmantchaonala et al.\ \cite{varmantchaonala_quantum_2024} provide the most comprehensive QNLP survey to date, covering quantum algorithms, circuit architectures, and NLP task categories; encoding appears as an implementation detail rather than as an independent variable. Guarasci et al.\ \cite{guarasci_quantum_2022} offer an early but influential overview of QNLP challenges and opportunities, cataloging approaches from theoretical quantum-advantage arguments to hardware experiments, without isolating encoding as a dimension of comparison. Widdows et al.\ \cite{widdows_quantum_2024} examine word embeddings and sequential quantum models and discuss trade-offs between representation strategies, with more attention to encoding as a design choice than any other general survey. Bouakba and Belhadef \cite{bouakba_comparative_2025} compare compositional DisCoCat models against quantum neural network approaches experimentally; their taxonomy axis (compositional versus flat-vector encoding) overlaps with the one proposed in this survey, though the scope is limited to two model families. Huzzat et al.\ \cite{huzzat_primer_2026} is the most encoding-aware prior work: it explicitly addresses the mismatch between the dimensionality of text representations and the qubit capacity of NISQ classifiers, and discusses classical compression as a prerequisite for stable training. It is, however, a conceptual primer for a single model class rather than a systematic review across the literature.
+
+Beyond QNLP itself, the quantum engineering literature has an established tradition of comprehensive subfield surveys, covering, for instance, quantum circuit compilation for NISQ devices \cite{kusyk2021survey}, quantum computing for finance \cite{egger2020quantum}, and entanglement routing in quantum networks \cite{abane2025entanglement}, the last of which likewise organizes its field through an explicit taxonomy of approaches. None of these addresses text encoding in QNLP, which is the gap the present survey fills within that tradition.
 
 This survey complements these works by treating encoding as the primary unit of analysis across 125 primary studies. Encoding family, qubit count, NLP task, execution environment, and quantum advantage claim were extracted for each study, yielding the first quantitative cross-study characterization of how text is encoded and at what resource cost.
 
@@ -169,12 +170,42 @@ To reduce the risk of missing relevant work not indexed by the two databases, tw
 \subsection{Final Corpus}
 The final primary corpus comprises 125 papers: 95 from database search and 30 from snowball sampling. Fig.~\ref{fig:prisma} summarizes the selection process following the PRISMA flow diagram convention.
 
+\subsection{Analysis Framework: The Encoding Comparison Instrument}
+\label{subsec:analysis_framework}
+
+The guidelines of Keele and Charters \cite{keele2007guidelines} prescribe the \emph{process} of a secondary study, and the preceding subsections instantiate each of its stages: planning and protocol definition (registered before the search), search strategy, study selection, and, through the extraction schema described below, data extraction and synthesis. What the guidelines deliberately do not prescribe is a domain-specific \emph{comparison instrument}, that is, a fixed scheme by which the primary studies of a particular field are classified and made commensurable. For a review whose object is the encoding step itself, such an instrument is the methodological core, and its design is a contribution of this survey in its own right. We refer to it in the remainder of the article as the \emph{encoding comparison framework}; every classification, cross-tabulation, and trend reported in Sections~\ref{sec:taxonomy}--\ref{sec:trends_challenges} is an application of this framework, not an ad hoc reading of the corpus.
+
+The framework classifies every primary study along a fixed set of dimensions, each with a closed value vocabulary, summarized in Table~\ref{tab:framework}. The two primary dimensions are the \emph{encoding family}, defined by the point at which text or text-derived features enter the quantum computation (Section~\ref{sec:taxonomy}), and the \emph{model family}, defined by the architecture that consumes the encoded state. Secondary dimensions capture the resources and evidence attached to that choice: qubit count and whether qubit scaling was tested, execution regime, presence of a classical baseline, the paper's own quantum-advantage claim, and three reporting dimensions (encoding-bottleneck awareness, barren-plateau treatment, scalability discussion). Each dimension is operationalized as one or more columns of the public extraction sheet released with this survey, so the framework and the dataset are two views of the same instrument.
+
+Assignment follows explicit decision rules. A study is classified by its \emph{dominant} encoding interface, the one that carries the text representation into the circuit whose output is evaluated; auxiliary encodings used only in ablations or baselines do not change the class (e.g., a study whose main pipeline is amplitude-encoded but that reports an angle-encoded ablation is classified as amplitude). Where a pipeline stacks a classical encoder in front of a quantum layer, the study is classified as \texttt{hybrid\_embed} only when the classical stage is co-trained or purpose-built as part of the contribution; a frozen pretrained embedding feeding a standard rotation layer remains \texttt{angle}. The \texttt{hybrid\_nn} model family covers any architecture in which a classical deep network (transformer, recurrent, or convolutional, not only LLM-based extractors) performs the main representational work and the quantum circuit is a submodule; a bare variational classifier over precomputed features is \texttt{vqc} even when those features come from a deep model. Compositional (DisCoCat-style) studies are identified by circuit topology derived from a grammatical parse, regardless of toolkit. These disambiguation rules were fixed during protocol definition and applied uniformly during extraction.
+
+Extraction and classification were performed by one author and reviewed by a second; disagreements were resolved by discussion against the decision rules above, and each row of the extraction sheet carries an explicit confidence grade (high/medium/low) reflecting how completely the primary study reports the extracted fields. Formal inter-rater reliability (e.g., Cohen's~$\kappa$) was not computed, which we state as a limitation of the extraction process rather than estimate post hoc.
+
+\begin{table*}[t]
+\caption{The encoding comparison framework: classification dimensions, admissible values, and the decision rule that assigns a primary study to a value. Each dimension is realized as one or more columns of the released extraction sheet.}
+\label{tab:framework}
+\centering
+\scriptsize
+\begin{tabular}{@{}p{0.16\textwidth} p{0.38\textwidth} p{0.38\textwidth}@{}}
+\hline
+\textbf{Dimension} & \textbf{Admissible values} & \textbf{Decision rule} \\
+\hline
+Encoding family & angle; amplitude; syntactic (DisCoCat); structured feature map; data re-uploading; hybrid embedding; Hamiltonian/observable & Dominant interface by which text-derived data enters the evaluated circuit; ablation-only encodings ignored \\
+Model family & VQC; compositional; hybrid neural; quantum transformer; quantum kernel; recurrent neural & Architecture consuming the encoded state; classical-deep-network host with quantum submodule $\Rightarrow$ hybrid neural; parse-derived topology $\Rightarrow$ compositional \\
+Qubit resources & qubit count (integer or NR); scaling tested (yes/no) & Largest register of the evaluated text circuit as reported; scaling = yes only if more than one register width is evaluated \\
+Execution regime & noiseless simulation; noisy simulation; mixed; real hardware & Highest-fidelity regime in which the main result is obtained; mixed = simulation plus any hardware validation run \\
+Baseline \& advantage & classical baseline (yes/no); advantage claim (yes/conditional/no) & Advantage claim as stated by the paper's own authors against their own baseline; not re-derived \\
+Reporting dimensions & bottleneck (explicit/implicit/absent); barren plateaus (discussed/mentioned/absent); scalability (yes/no) & Explicit = named and analyzed; implicit = the constraint shapes design without being named; mentioned = term appears without engagement \\
+\hline
+\end{tabular}
+\end{table*}
+
 \section{Taxonomy of Text Encoding Strategies}
 \label{sec:taxonomy}
 
 The encoding problem in QNLP is not a single operation. Depending on the study, text can enter the quantum computation as rotation parameters, as amplitudes of a prepared state, as a grammar-derived circuit, as a structured feature map, or through a more specialized interface such as repeated data injection, a hybrid neural representation, or an observable. These mechanisms are often discussed under the same term, ``encoding,'' although they make different assumptions about where linguistic information is represented and which quantum resource is being used.
 
-This section shows how these mechanisms are organized into the proposed taxonomy as shown in Table~\ref{tab:encoding_taxonomy}. The classification is based on the point at which text or text-derived features enter the quantum computation. We therefore do not classify a study by the optimizer, measurement rule, downstream classifier, or ansatz alone. These elements are treated as design choices that can be combined with an encoding category. This distinction is important because an applied QNLP pipeline is usually a combination of several decisions: a classical text representation, a quantum encoding interface, a trainable or fixed circuit, and a measurement or kernel rule.
+This section shows how these mechanisms are organized into the proposed taxonomy as shown in Table~\ref{tab:encoding_taxonomy}, applying the encoding comparison framework of Section~\ref{subsec:analysis_framework}: every study discussed below is assigned to exactly one encoding family by the framework's dominant-interface decision rule. The classification is based on the point at which text or text-derived features enter the quantum computation. We therefore do not classify a study by the optimizer, measurement rule, downstream classifier, or ansatz alone. These elements are treated as design choices that can be combined with an encoding category. This distinction is important because an applied QNLP pipeline is usually a combination of several decisions: a classical text representation, a quantum encoding interface, a trainable or fixed circuit, and a measurement or kernel rule.
 
 The final analyzed corpus contains 125 primary studies. Four major encoding families are observed: angle encoding ($n=51$), amplitude encoding ($n=28$), syntactic/DisCoCat encoding ($n=29$), and structured feature-map encoding ($n=9$). A smaller residual group ($n=8$) contains specialized interfaces: data re-uploading ($n=4$), hybrid classical--quantum embedding ($n=3$), and Hamiltonian/observable encoding ($n=1$). To use the taxonomy, one may first identify whether the text representation is loaded as a flat vector, imposed through linguistic structure, or used to define a kernel geometry. The next design question is whether the encoding is intended to minimize qubit count, preserve linguistic composition, define a kernel geometry, or improve trainable circuit expressivity. Not all combinations are equally practical on near-term devices. The main tradeoff is between width, depth, state-preparation cost, and the amount of linguistic structure preserved by the quantum circuit \cite{preskill2018quantum,cerezo2021variational,ruskanda_evaluating_2025}.
 
@@ -273,6 +304,28 @@ The taxonomy makes clear that encoding is not a neutral preprocessing choice in 
 
 This distinction matters because many cross-paper comparisons implicitly compare different views of the input rather than only different learning architectures. A VQC using compressed word or sentence vectors, a DisCoCat circuit generated from a parser, and a kernel model built around a designed feature map make different commitments about what should be preserved from the original text. Their results are therefore shaped jointly by the classical representation, the compression method, the encoding circuit, the ansatz, the measurement rule, and the execution backend.
 
+Table~\ref{tab:encoding_comparative} condenses this section into a single comparative view along the four axes on which the families differ most: how the qubit requirement scales with the input dimension, what the main trainability risk is, whether the corpus-typical instantiations remain classically simulable, and what part of the linguistic representation survives the mapping. Its cells restate, in compressed form, the per-family analyses of Sections~\ref{subsec:angle_encoding}--\ref{subsec:other_encoding_interfaces}.
+
+\begin{table*}[t]
+\caption{Comparative view of the encoding families along four axes: qubit scaling with input dimension $d$, dominant trainability risk, classical simulability at corpus-typical sizes, and preservation of semantic or syntactic structure. $d'$ denotes the feature count surviving classical reduction; $q$ the register width.}
+\label{tab:encoding_comparative}
+\centering
+\scriptsize
+\begin{tabular}{@{}p{0.14\textwidth} p{0.17\textwidth} p{0.20\textwidth} p{0.17\textwidth} p{0.22\textwidth}@{}}
+\hline
+\textbf{Encoding family} & \textbf{Qubit scaling} & \textbf{Trainability risk} & \textbf{Classical simulability} & \textbf{Semantic preservation} \\
+\hline
+Angle & $q \geq d'$, linear in retained features & Low: shallow rotation layers, standard parameter shift & Trivial at corpus widths (2--8 qubits) & Low: only the $d'$-dimensional remainder of an aggressive reduction survives \\
+Amplitude & $q = \lceil \log_2 d \rceil$; state-preparation depth scales with $d$ & Preparation depth, routinely hidden in simulator calls & Trivial as statevector; hardware cost unpaid in most studies & High up to normalization: the full vector is the state \\
+Syntactic/DisCoCat & $q$ set by sentence length and grammatical wire types, not by $d$ & Shallow per-word ans\"atze; parser coverage is the practical limit & IQP blocks conjectured hard; corpus instances small enough to simulate & Syntactic structure explicit in circuit topology; lexical detail limited by small ans\"atze \\
+Structured feature map & $\approx$ one qubit per retained feature after reduction & Map is fixed, not trained; risk moves to map--task mismatch & Second-order maps conjectured hard to simulate at scale & Depends on whether hand-chosen interactions match the task \\
+Data re-uploading & Fixed small $q$; depth grows with re-injections & Depth-induced gradient decay as layers accumulate & Trivial at corpus widths & Moderate: repeated injection retains more than one-shot loading at equal width \\
+Hybrid embedding & Minimal $q$ (4--8); latent dimension matched to register & Attribution: classical encoder dominates learning & Trivial & Delegated: whatever the classical encoder compresses into the latent survives \\
+Hamiltonian/observable & $q = \lceil \log_2 d \rceil$ with no state preparation & Single study; untested at scale & Trivial at demonstrated size & Full vector enters as observable coefficients \\
+\hline
+\end{tabular}
+\end{table*}
+
 The taxonomy is therefore used in the remainder of the survey to organize the evidence, not to rank the encodings. The available studies do not yet show that any single family is generally superior across QNLP tasks. Instead, they show that the encoding stage frames the experiment itself: it defines the form of the linguistic input, constrains the feasible circuit resources, and conditions how performance, scalability, and quantum-advantage claims should be read.
 
 \section{Comparative Analysis of Encoding Families}
@@ -280,7 +333,7 @@ The taxonomy is therefore used in the remainder of the survey to organize the ev
 
 This section uses the taxonomy to assess how far the main encoding families have developed in practice. Rather than revisiting the definition of each family, the focus is on what the corpus reveals about their use: which encodings have become standard design choices, which remain exploratory, and how strongly the reported results are supported by datasets, baselines, hardware assumptions, and scalability analysis.
 
-The analysis is based on the corrected corpus of 125 primary studies. Each study is assigned to its dominant encoding interface, although most implementations combine several steps before measurement: text representation, feature reduction, circuit encoding, a trainable or fixed quantum model, and a readout rule. This matters because an observed result is rarely attributable to the encoding alone. It often reflects the full pipeline in which the encoding is embedded.
+The analysis is based on the corrected corpus of 125 primary studies, classified under the encoding comparison framework of Section~\ref{subsec:analysis_framework}; the complete per-study classification is listed in Appendix~\ref{app:corpus_classification}. Each study is assigned to its dominant encoding interface, although most implementations combine several steps before measurement: text representation, feature reduction, circuit encoding, a trainable or fixed quantum model, and a readout rule. This matters because an observed result is rarely attributable to the encoding alone. It often reflects the full pipeline in which the encoding is embedded.
 
 \Figure[t!](topskip=0pt, botskip=0pt, midskip=0pt)[width=\textwidth]{figures/encoding_by_model_family.pdf}{Encoding family by model family in the final primary corpus. Cell values report the number of studies assigned to each encoding--model-family pair.\label{fig:encoding_model_family}}
 
@@ -537,7 +590,48 @@ The preceding sections examined the corpus from five angles in turn: what is enc
 \subsection{Where the Field Is Heading}
 \label{subsec:trends_synthesis}
 
-Three trends, each established separately above, describe the same underlying movement when read together. First, the field is consolidating around encodings that make the fewest demands on a newcomer: angle and amplitude encoding, which accept any fixed-length numeric vector and therefore compose freely with whatever pretrained embedding a research group already has on hand, now account for four of every five studies published from 2024 onward (Section~\ref{subsec:temporal_encoding}), while syntactic/DisCoCat encoding, which requires a grammar formalism and a narrow parser toolchain, has fallen from the entirety of the 2021 corpus to roughly one study in nine by 2026 (Section~\ref{subsec:temporal_model_family}). Second, this consolidation is a consolidation onto simulators, not onto quantum hardware: the years in which the corpus grew fastest, 2025 and 2026, are also the years with the lowest combined rate of hardware or noisy-simulation engagement of the entire six-year window (Section~\ref{subsec:hardware_timeline}). Third, where the corpus does show a real, mechanistically grounded success, amplitude encoding on similarity and disambiguation tasks, where the encoded state's inner product literally performs the task's core computation (Section~\ref{sec:task_fit}), that success is small, concentrated in a single task family and a single model family (quantum kernels), and was arrived at by mathematical necessity rather than by systematic search across the corpus. Put together, the field's growth curve and its evidentiary curve are decoupling: publication volume is rising fastest in exactly the segment, simulator-only VQC and hybrid-neural pipelines built on commodity embeddings, that is least equipped to demonstrate anything about noise, hardware behavior, or a genuine quantum contribution, while the segment with the clearest structural argument for a quantum-native advantage remains a small, slow-growing niche.
+Table~\ref{tab:trends_counts} first fixes the quantitative baseline: for each categorical dimension of the comparison framework (Section~\ref{subsec:analysis_framework}), it reports the distribution over the full corpus of 125 studies. Three trends, each established separately above, describe the same underlying movement when read together.
+
+\begin{table}[t]
+\caption{Distribution of the framework's categorical dimensions over the final primary corpus ($n=125$). All counts are computed directly from the released extraction sheet.}
+\label{tab:trends_counts}
+\centering
+\scriptsize
+\begin{tabular}{@{}llr r@{}}
+\hline
+\textbf{Dimension} & \textbf{Value} & \textbf{$n$} & \textbf{\%} \\
+\hline
+Execution regime & noiseless simulation & 95 & 76.0 \\
+ & noisy simulation & 14 & 11.2 \\
+ & mixed (sim.\ + hardware) & 14 & 11.2 \\
+ & real hardware only & 2 & 1.6 \\
+\hline
+Advantage claim & conditional & 46 & 36.8 \\
+ & yes & 41 & 32.8 \\
+ & no & 38 & 30.4 \\
+\hline
+Encoding bottleneck & implicit & 55 & 44.0 \\
+ & absent & 36 & 28.8 \\
+ & explicit & 34 & 27.2 \\
+\hline
+Barren plateaus & absent & 102 & 81.6 \\
+ & mentioned & 19 & 15.2 \\
+ & discussed & 4 & 3.2 \\
+\hline
+Qubit scaling tested & no & 102 & 81.6 \\
+ & yes & 23 & 18.4 \\
+\hline
+Scalability discussed & yes & 91 & 72.8 \\
+ & no & 34 & 27.2 \\
+\hline
+Classical baseline & yes & 110 & 88.0 \\
+ & no & 15 & 12.0 \\
+\hline
+Code available & no & 100 & 80.0 \\
+ & yes & 25 & 20.0 \\
+\hline
+\end{tabular}
+\end{table} First, the field is consolidating around encodings that make the fewest demands on a newcomer: angle and amplitude encoding, which accept any fixed-length numeric vector and therefore compose freely with whatever pretrained embedding a research group already has on hand, now account for four of every five studies published from 2024 onward (Section~\ref{subsec:temporal_encoding}), while syntactic/DisCoCat encoding, which requires a grammar formalism and a narrow parser toolchain, has fallen from the entirety of the 2021 corpus to roughly one study in nine by 2026 (Section~\ref{subsec:temporal_model_family}). Second, this consolidation is a consolidation onto simulators, not onto quantum hardware: the years in which the corpus grew fastest, 2025 and 2026, are also the years with the lowest combined rate of hardware or noisy-simulation engagement of the entire six-year window (Section~\ref{subsec:hardware_timeline}). Third, where the corpus does show a real, mechanistically grounded success, amplitude encoding on similarity and disambiguation tasks, where the encoded state's inner product literally performs the task's core computation (Section~\ref{sec:task_fit}), that success is small, concentrated in a single task family and a single model family (quantum kernels), and was arrived at by mathematical necessity rather than by systematic search across the corpus. Put together, the field's growth curve and its evidentiary curve are decoupling: publication volume is rising fastest in exactly the segment, simulator-only VQC and hybrid-neural pipelines built on commodity embeddings, that is least equipped to demonstrate anything about noise, hardware behavior, or a genuine quantum contribution, while the segment with the clearest structural argument for a quantum-native advantage remains a small, slow-growing niche.
 
 \subsection{The Encoding Bottleneck, Stated Formally}
 \label{subsec:encoding_bottleneck_formalized}
@@ -551,10 +645,51 @@ This is the encoding bottleneck named in the abstract: a persistent gap between 
 
 Section~\ref{sec:experimental_rigor} documented the pieces of this gap individually; read as a whole, they describe a field whose reporting practice has not kept pace with its output. Three-quarters of the corpus never leaves a noiseless simulator, and the two families carrying the field's growth, angle and amplitude encoding, are the least hardware-validated of all (Section~\ref{subsec:execution_regimes}). Barren plateaus are substantively discussed in one study in thirty despite being a known risk for the wide or deep circuits several of the surveyed model families construct (Section~\ref{subsec:reproducibility_gap}). More than a quarter of the corpus does not report which simulation framework was used, and four in five studies release no code, so a meaningful share of the corpus cannot be independently reproduced even in simulation, let alone re-validated on hardware. Underneath all of this sits the finding of Section~\ref{sec:task_fit}: the quantum-advantage label itself is self-reported by each paper against whatever classical baseline, dataset, and metric its own authors chose, so raw counts of claimed advantage carry little evidential weight on their own and become trustworthy only when, as with amplitude encoding on similarity tasks, they coincide with an independent structural reason the encoding should help. None of these gaps is specific to one encoding family or one model family; they are properties of how the field as a whole reports its experiments, which is why closing them is a precondition for the task-encoding fit questions raised in Section~\ref{sec:task_fit} to be answered with any confidence beyond the single case the current corpus supports.
 
+\subsection{Open Challenges}
+\label{subsec:challenges_enumerated}
+
+The gaps documented throughout the review reduce to seven open challenges, each derived from the corpus itself rather than imported from general quantum-computing commentary. For each, we state the challenge, the corpus evidence with counts from Table~\ref{tab:trends_counts}, and why it remains open; Table~\ref{tab:challenges} summarizes them.
+
+\begin{enumerate}
+\item[C1)] \emph{The encoding bottleneck itself.} State-preparation and compression costs dominate any downstream benefit. Evidence: 89 of 125 studies (34 explicit, 55 implicit) shape their design around the $d$-versus-$q$ mismatch formalized in Section~\ref{subsec:encoding_bottleneck_formalized}; the corpus's responses, divide-and-conquer preparation \cite{zhang_entangled_2024}, observable encoding \cite{tiblias_efficient_2026}, depth-for-width trades \cite{silver_lexiql_2024}, mitigate the cost without closing the gap. Open because no surveyed encoding grows the effective qubit budget without paying in information, depth, or a relocated classical burden.
+
+\item[C2)] \emph{Non-demonstrable quantum advantage.} The advantage label is self-reported against author-chosen baselines. Evidence: 41 studies claim advantage, 46 conditionally, 38 not at all, while 15 report no classical baseline whatsoever; the one cluster where claims align with a structural reason is amplitude encoding on similarity tasks \cite{cavar_word_2025,zeguendry_quantum_2024}. Open because no shared benchmark with fixed classical baselines exists against which the claims could be made commensurable.
+
+\item[C3)] \emph{Trainability at scale (barren plateaus).} Evidence: 102 studies never raise barren plateaus, 19 mention the term without engaging it, and only 4 analyze it, despite corpus registers reaching 28 qubits \cite{he_training_2024} and only isolated ansatz-level analyses \cite{abiwardani_generalized_2025}. Open because the corpus's dominant circuit sizes are exactly where the pathology is mild, so present results say little about the widths any scaling path requires.
+
+\item[C4)] \emph{The simulation--hardware gap.} Evidence: 95 studies (76.0\%) never leave a noiseless simulator; hardware-touched work peaked in 2022--2024 and fell to 2.4\% and 3.7\% of the 2025 and 2026 corpora respectively (Section~\ref{subsec:hardware_timeline}), with \cite{liu_experimentally_2026} the only recent hardware-validated study. Open because noiseless simulation is silent on decoherence, gate error, and readout noise, precisely the properties that decide near-term viability.
+
+\item[C5)] \emph{Absent scaling evidence.} Evidence: 102 of 125 studies evaluate a single register width; only 23 test more than one, and systematic sweeps such as the 1--16-qubit comparison of \cite{zhang_entangled_2024} are rare. Open because every resource argument in Section~\ref{subsec:encoding_bottleneck_formalized} is asymptotic while the evidence is single-point.
+
+\item[C6)] \emph{Reproducibility and benchmark triviality.} Evidence: 100 studies (80.0\%) release no code and 34 (27.2\%) do not name their simulation framework (Section~\ref{subsec:reproducibility_gap}); much of the compositional subcorpus evaluates on the $\sim$100-sentence MC/RP datasets \cite{lorenz_qnlp_2023,bouakba_ensemble_2023}, where perfect accuracies are reported on small samples \cite{liu_research_2024}. Open because neither independent re-execution nor cross-paper comparison is possible at this reporting standard.
+
+\item[C7)] \emph{Loss of linguistic structure under compression.} Evidence: outside the syntactic family, the reduction stage discards most of the representation before the circuit sees it, 768-dimensional embeddings reduced to ten \cite{ahmad_hybrid_2023}, four \cite{kumar_hybrid_2026}, or two \cite{altintas_beyond_2025} features, and 34 studies do not discuss scalability of this pipeline at all. Open because no surveyed study quantifies what the reduction removes, so the quantum circuit's input is uncharacterized in exactly the dimension the field claims to process.
+\end{enumerate}
+
+\begin{table}[t]
+\caption{Open challenges with corpus evidence. Counts are over the full corpus ($n=125$) and computed from the released extraction sheet.}
+\label{tab:challenges}
+\centering
+\scriptsize
+\begin{tabular}{@{}p{0.30\columnwidth} p{0.30\columnwidth} p{0.26\columnwidth}@{}}
+\hline
+\textbf{Challenge} & \textbf{Corpus evidence} & \textbf{Representative studies} \\
+\hline
+C1 Encoding bottleneck & 89/125 designs shaped by it (34 explicit, 55 implicit) & \cite{zhang_entangled_2024,tiblias_efficient_2026,silver_lexiql_2024} \\
+C2 Advantage non-demonstrable & 41 yes / 46 conditional / 38 no; 15 without classical baseline & \cite{cavar_word_2025,zeguendry_quantum_2024} \\
+C3 Barren plateaus untreated & 102/125 silent; 4 substantive analyses & \cite{he_training_2024,abiwardani_generalized_2025} \\
+C4 Simulation--hardware gap & 95/125 noiseless only; 2025--26 hardware share $\leq$3.7\% & \cite{liu_experimentally_2026,he_training_2024} \\
+C5 No scaling evidence & 102/125 single register width & \cite{zhang_entangled_2024,kim_quantum_2025} \\
+C6 Reproducibility \& benchmarks & 100/125 no code; 34/125 framework unreported & \cite{lorenz_qnlp_2023,bouakba_ensemble_2023,liu_research_2024} \\
+C7 Structure lost in compression & 768-dim embeddings cut to 2--10 features; 34/125 no scalability discussion & \cite{ahmad_hybrid_2023,kumar_hybrid_2026,altintas_beyond_2025} \\
+\hline
+\end{tabular}
+\end{table}
+
 \subsection{An Agenda for Future Work}
 \label{subsec:open_challenges}
 
-Four gaps follow directly from the analysis above and are actionable rather than merely diagnostic.
+Four actionable gaps follow directly from challenges C1--C7 above.
 
 \emph{Noise-in-the-loop evaluation as a default, not an afterthought.} Because angle and amplitude encoding are simultaneously the fastest-growing families (Section~\ref{subsec:temporal_encoding}) and the least hardware- or noise-validated (Section~\ref{subsec:execution_regimes}), and because recurrent quantum architectures re-apply their encoding once per token with no noisy-simulation or hardware study reported anywhere in the corpus (Section~\ref{subsec:execution_by_model_family}), the highest-value next step is not more noiseless benchmarking but systematic reporting of accuracy under an explicit, calibrated noise model as a minimum bar for publication, following the small set of studies in the corpus that already model depolarizing and readout error from real device calibration data rather than treating noise as a qualitative caveat.
 
@@ -576,6 +711,12 @@ Underlying all four findings is the encoding bottleneck formalized in Section~\r
 This review has its own limits, which should condition how its conclusions are used. The search covered two databases, Scopus and IEEE Xplore, and while two rounds of backward and forward snowball sampling were used specifically to recover work those databases miss, a search strategy of this kind cannot guarantee complete coverage of a fast-moving, preprint-heavy field. The 2026 publication counts used throughout are necessarily partial, since the search was conducted before the year closed, and every year-over-year trend reported in Sections~\ref{sec:temporal_evolution} and~\ref{sec:experimental_rigor} should be read with that caveat attached to its final data point. Several of the extracted fields, quantum-advantage claims, scalability discussion, and stated limitations among them, are self-reported by the primary studies themselves rather than independently re-derived, so the review inherits the same inconsistency in how individual authors define and report these properties that Section~\ref{sec:task_fit} and Section~\ref{subsec:reproducibility_gap} identify as a limitation of the field at large.
 
 None of this changes the central conclusion. Text encoding is not a neutral preprocessing step in QNLP; it is the decision that fixes how much of a language sample survives contact with a near-term quantum circuit, and it deserves the same scrutiny as the ansatz, the optimizer, or the classical baseline it is compared against. The taxonomy, corpus, and extracted metadata released with this survey are offered as the basis for that scrutiny in future work, including the encoding-controlled comparisons, noise-in-the-loop evaluations, and shared benchmarks called for in Section~\ref{sec:trends_challenges}.
+
+\appendices
+\section{Corpus Classification}
+\label{app:corpus_classification}
+Tables~\ref{tab:corpus_classification_1}--\ref{tab:corpus_classification_3} list the complete classification of the 125 primary studies under the encoding comparison framework of Section~\ref{subsec:analysis_framework}: model family, encoding family, qubit count, primary dataset, and hardware backend for each study. The tables are generated directly from the released extraction sheet, so they can be regenerated whenever the corpus data is revised.
+\input{corpus_table}
 
 \bibliography{references}
 \bibliographystyle{IEEEtran}
