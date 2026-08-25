@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.4)  25 AUG 2026 14:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.4)  25 AUG 2026 14:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -974,9 +974,12 @@ File: figures/encoding_by_task_family.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/encoding_by_task_family.pdf  used on input lin
 e 518.
 (pdftex.def)             Requested size: 505.12177pt x 315.48178pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 File: notaglineLogo.png Graphic file (type png)
 <use notaglineLogo.png>
-Package pdftex.def Info: notaglineLogo.png  used on input line 528.
+Package pdftex.def Info: notaglineLogo.png  used on input line 532.
 (pdftex.def)             Requested size: 91.32pt x 18.9761pt.
 
 Overfull \hbox (505.12177pt too wide) has occurred while \output is active
@@ -1825,13 +1828,13 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 4765 strings out of 467871
- 78233 string characters out of 5418377
+ 4764 strings out of 467871
+ 78221 string characters out of 5418377
  562779 words of memory out of 5000000
- 33547 multiletter control sequences out of 15000+600000
- 725653 words of font info for 163 fonts, out of 8000000 for 9000
+ 33546 multiletter control sequences out of 15000+600000
+ 724009 words of font info for 162 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,13n,79p,2796b,531s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,13n,79p,2713b,531s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb><C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmex10.pfb><C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -1854,7 +1857,7 @@ grams/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/lukas/AppData/Local/
 Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/lukas/AppData/Local/
 Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lukas/AppData/Local/
 Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on tqe.pdf (33 pages, 1173260 bytes).
+Output written on tqe.pdf (33 pages, 1173167 bytes).
 PDF statistics:
  409 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
