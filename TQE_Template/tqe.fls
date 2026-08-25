@@ -375,6 +375,7 @@ INPUT .\figures\encoding_by_task_family.pdf
 INPUT .\figures\encoding_by_task_family.pdf
 INPUT .\figures\encoding_by_task_family.pdf
 INPUT .\figures\encoding_by_task_family.pdf
+INPUT C:\Users\lukas\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8t.tfm
 INPUT .\notaglineLogo.png
 INPUT .\notaglineLogo.png
 INPUT .\notaglineLogo.png
@@ -414,10 +415,6 @@ INPUT .\notaglineLogo.png
 INPUT .\notaglineLogo.png
 INPUT C:\Users\lukas\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
 INPUT C:\Users\lukas\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
-INPUT .\notaglineLogo.png
-INPUT .\notaglineLogo.png
-INPUT .\notaglineLogo.png
-INPUT .\notaglineLogo.png
 INPUT .\notaglineLogo.png
 INPUT .\notaglineLogo.png
 INPUT .\notaglineLogo.png

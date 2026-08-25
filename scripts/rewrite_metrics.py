@@ -49,8 +49,22 @@ def section_metrics(pattern):
     print(f"words={len(words)} sentences={len(sents)} median={med} max={max(lens) if lens else 0} over45={sum(1 for x in lens if x>45)} over60={sum(1 for x in lens if x>60)}")
 
 
+def doc_metrics():
+    import statistics
+    t = TEXS[0].read_text(encoding="utf-8", errors="replace")
+    body = strip_tex(t)
+    sents = [s for s in re.split(r"(?<=[.!?])\s+", body) if len(s.split()) > 3]
+    lens = sorted(len(s.split()) for s in sents)
+    o45 = sum(1 for x in lens if x > 45)
+    print(f"sentences={len(lens)} median={statistics.median(lens)} max={max(lens)} "
+          f"over45={o45} ({100*o45/len(lens):.1f}%) over60={sum(1 for x in lens if x>60)} "
+          f"words={sum(lens)}")
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "snapshot":
         snapshot(sys.argv[2])
     elif sys.argv[1] == "section":
         section_metrics(sys.argv[2])
+    elif sys.argv[1] == "doc":
+        doc_metrics()
