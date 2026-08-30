@@ -1181,4 +1181,14 @@ Z.-P. Liu, X.-Y. Cao, H.-W. Liu, X.-R. Sun, Y.~Bao, J.-Y. Shen, Y.-S. Lu, H.-L.
   2026. [Online]. Available: \url{http://dx.doi.org/10.34133/research.1299}
 \BIBentrySTDinterwordspacing
 
+\bibitem{mottonen2005transformation}
+M.~M{\"o}tt{\"o}nen, J.~J. Vartiainen, V.~Bergholm, and M.~M. Salomaa,
+  ``Transformation of quantum states using uniformly controlled rotations,''
+  \emph{Quantum Information and Computation}, vol.~5, no.~6, pp. 467--473,
+  2005.
+
+\bibitem{plesch2011quantum}
+M.~Plesch and {\v{C}}.~Brukner, ``Quantum-state preparation with universal gate
+  decompositions,'' \emph{Physical Review A}, vol.~83, no.~3, p. 032302, 2011.
+
 \end{thebibliography}

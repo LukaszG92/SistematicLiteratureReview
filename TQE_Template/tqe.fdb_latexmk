@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex tqe"] 1787662270.35492 "tqe.aux" "tqe.bbl" "tqe" 1787662334.17762 0
-  "./references.bib" 1787659809.79394 280501 5624a687f247d4c0531c5881a5f60700 ""
+["bibtex tqe"] 1787774080.94379 "tqe.aux" "tqe.bbl" "tqe" 1787774136.48692 0
+  "./references.bib" 1787773978.51223 91694 8cacee3f75797eb5fde646eccb463757 ""
   "C:/Users/lukas/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "tqe.aux" 1787662333.50996 31830 d7fba8268008a060f518cbac09a60598 "pdflatex"
+  "tqe.aux" 1787774135.86432 25018 b69ba16777076155be268649b2831677 "pdflatex"
   (generated)
   "tqe.bbl"
   "tqe.blg"
   (rewritten before read)
-["pdflatex"] 1787662332.92139 "tqe.tex" "tqe.pdf" "tqe" 1787662334.17854 0
+["pdflatex"] 1787774135.30319 "tqe.tex" "tqe.pdf" "tqe" 1787774136.48777 0
   "C:/Users/lukas/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1785779805.3794 83817 bb9b5e2d493a215a9493ee71d323406e ""
   "C:/Users/lukas/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1772639891.9049 13333486 78efa4f582e9b071f329c045b45cca37 ""
   "C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 1194fb36dfcb11d9ae9802f2b00b60a3 ""
@@ -54,7 +54,6 @@
   "C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1247596667 36281 c355509802a035cadc5f15869451dcee ""
   "C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb" 1247596666 36912 b448ef9ad9d7228ec3c6e71005136d55 ""
   "C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1247596667 35752 024fb6c41858982481f6968b5fc26508 ""
-  "C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1247596667 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1247596667 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1247596667 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "C:/Users/lukas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1247596666 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
@@ -116,16 +115,15 @@
   "Logo.png" 1785762933.16741 19931 eeebae2c250343551d3b178d9fb1563c ""
   "PRISMA_Chart.jpg" 1785762933.16409 685591 1d8126543df904218ef596492563a39d ""
   "bullet.png" 1785762933.16409 430 e52d8fe748259de33fa611fdd6a099c1 ""
-  "corpus_table.tex" 1787660024.00685 13388 c503bf479d0037a8234afd8cd0dbfdae ""
   "figures/encoding_by_model_family.pdf" 1785766280.5946 17475 2689fe54f301ee71dc9abb83a824a9fd ""
   "figures/encoding_by_task_family.pdf" 1785780718.58313 23668 c4aa545cc9b3a824da0e0690df087dff ""
   "figures/encoding_by_year.pdf" 1785768443.82885 16164 544aae0dc592db32f7dceb9f24cd331c ""
   "figures/model_family_by_year.pdf" 1785768443.88814 15276 0e73ed4d2cb5ad4e7d8cad0d8580c3c4 ""
   "ieeeaccess.cls" 1785762933.16741 43839 3abf959902254cbaf82e6ce14f087bf5 ""
   "notaglineLogo.png" 1785762933.16741 19931 35cd4679a050bafc83db307234e4354a ""
-  "tqe.aux" 1787662333.50996 31830 d7fba8268008a060f518cbac09a60598 "pdflatex"
-  "tqe.bbl" 1787662270.53223 58622 7cda9e8309bacc3e287176b05f870f4d "bibtex tqe"
-  "tqe.tex" 1787662322.80777 149064 644e8e2dbf2bd212732bbd129c57a5d1 ""
+  "tqe.aux" 1787774135.86432 25018 b69ba16777076155be268649b2831677 "pdflatex"
+  "tqe.bbl" 1787774081.11124 59089 80ca5c92a20ccf1eb16254e915595c1e "bibtex tqe"
+  "tqe.tex" 1787774129.4222 147157 2c3f70d9b7aee94ab1bc316e6d8e7d28 ""
   (generated)
   "tqe.aux"
   "tqe.log"
