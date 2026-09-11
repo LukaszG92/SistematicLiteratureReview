@@ -14,5 +14,7 @@ word_sense_disambiguation : WSD
 information_retrieval     : IR / ranking
 misinformation_detection  : fake news / disinformation / rumor detection
 dialogue                  : sistemi di dialogo
-music_or_multimodal       : task non puramente testuali con metodi QNLP
+music_or_multimodal       : task NON linguistici affrontati con metodi QNLP (es. musica). NON usare per
+                            paper multimodali il cui task resta un task NLP standard: quelli vanno
+                            codificati col token del task (es. sentiment_analysis, question_answering)
 none                      : nessun task applicativo (paper puramente teorico)

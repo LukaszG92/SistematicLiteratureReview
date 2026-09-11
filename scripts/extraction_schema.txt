@@ -76,5 +76,4 @@ future_work         : direzioni future dichiarate (max 25 parole, parafrasate)
 
 === 7. QUALITÀ E META ===
 code_available      : {yes, no}
-extraction_confidence : {high, medium, low}
 notes               : osservazioni libere (max 40 parole), varianti di encoding specifiche, altrimenti NR

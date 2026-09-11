@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-ROOT = Path("/Users/lukaszgajewski/PycharmProjects/SLR")
+ROOT = Path(__file__).resolve().parent.parent
 CSV_PATH = ROOT / "data" / "p4_final_corpus_analyzed.csv"
 OUT_DIR = ROOT / "data" / "review_analysis"
 FIG_DIR = ROOT / "TQE_Template" / "figures"
@@ -119,15 +119,22 @@ DATASET_DROP = {
 
 
 def paper_task_families(raw: object) -> list[str]:
+    """Task families of one study.
+
+    A study counts as "other" only when none of its labels resolves to a named
+    family. A minor secondary label with no family of its own (regression,
+    storyline extraction, knowledge-graph construction) does not drag a study
+    that already has a family into the residual.
+    """
     families = []
     for label in str(raw).split(";"):
         label = label.strip()
         if not label or label in ("NR", "NA"):
             continue
         fam = TASK_FAMILY_MAP.get(label, "other")
-        if fam not in families:
+        if fam != "other" and fam not in families:
             families.append(fam)
-    return families
+    return families or ["other"]
 
 
 def paper_datasets(raw: object) -> list[str]:
@@ -483,6 +490,14 @@ def main() -> None:
     )
     code_counts.to_csv(OUT_DIR / "code_available_counts.csv", index=False)
 
+    scalability_counts = (
+        df["scalability_discussed"]
+        .value_counts()
+        .rename_axis("scalability_discussed")
+        .reset_index(name="count")
+    )
+    scalability_counts.to_csv(OUT_DIR / "scalability_discussed_counts.csv", index=False)
+
     bottleneck_counts = (
         df["encoding_bottleneck"]
         .value_counts()
@@ -498,14 +513,6 @@ def main() -> None:
         .reset_index(name="count")
     )
     barren_counts.to_csv(OUT_DIR / "barren_plateaus_counts.csv", index=False)
-
-    extraction_counts = (
-        df["extraction_confidence"]
-        .value_counts()
-        .rename_axis("extraction_confidence")
-        .reset_index(name="count")
-    )
-    extraction_counts.to_csv(OUT_DIR / "extraction_confidence_counts.csv", index=False)
 
     family_x_encoding = pd.crosstab(df["model_family"], df["encoding"]).reindex(index=family_order, columns=encoding_order, fill_value=0)
     family_x_encoding.to_csv(OUT_DIR / "model_family_x_encoding_counts.csv")

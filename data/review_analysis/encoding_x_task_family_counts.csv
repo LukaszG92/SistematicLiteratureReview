@@ -1,8 +1,8 @@
 ,sentiment classification,other classification,similarity & disambiguation,sequence labeling,QA & retrieval,generation & LM,other
-Angle,21,21,1,5,1,4,6
-Amplitude,11,9,6,1,1,2,2
-Syntactic/DisCoCat,8,13,5,0,2,2,4
-Structured feature map,4,3,1,0,2,1,2
+Angle,24,21,1,5,2,4,1
+Amplitude,12,9,6,1,1,2,1
+Syntactic/DisCoCat,8,15,5,0,2,2,1
+Structured feature map,4,4,1,0,2,1,0
 Data re-uploading,2,3,0,0,0,0,0
 Hybrid embedding,0,3,0,0,0,1,0
 Hamiltonian/observable,1,1,0,0,0,0,0

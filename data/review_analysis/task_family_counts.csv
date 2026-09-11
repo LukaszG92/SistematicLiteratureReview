@@ -1,8 +1,8 @@
 task_family,papers,share_pct
-sentiment classification,47,37.6
-other classification,53,42.4
+sentiment classification,51,40.8
+other classification,56,44.8
 similarity & disambiguation,13,10.4
 sequence labeling,6,4.8
-QA & retrieval,6,4.8
+QA & retrieval,7,5.6
 generation & LM,10,8.0
-other,14,11.2
+other,3,2.4
