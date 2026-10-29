@@ -260,7 +260,7 @@ def save_heatmap(table: pd.DataFrame, out_path: Path, title: str, fmt: str = "d"
 
 
 def save_paper_heatmap(table: pd.DataFrame, out_path: Path, xlabel: str, ylabel: str) -> None:
-    """Publication-style heatmap (no title, PDF) matching encoding_by_model_family.pdf."""
+    """Publication-style heatmap (no title, PDF) used for the encoding cross-tab figures."""
     data = table.fillna(0).values.astype(float)
     vmax = data.max() if data.size else 1.0
     fig, ax = plt.subplots(figsize=(9.0, 0.55 * len(table.index) + 1.8))
@@ -282,6 +282,41 @@ def save_paper_heatmap(table: pd.DataFrame, out_path: Path, xlabel: str, ylabel:
             ax.text(j, i, str(val), ha="center", va="center", fontsize=9, color=color)
     cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
     cbar.set_label("Number of studies", fontsize=10)
+    fig.tight_layout()
+    fig.savefig(out_path, bbox_inches="tight")
+    plt.close(fig)
+
+
+def save_paper_stacked(table: pd.DataFrame, out_path: Path, ylabel: str, n_minor: int = 0) -> None:
+    """Publication-style stacked bars in the Blues palette of the heatmaps.
+
+    Shades run dark (bottom of the stack) to light (top), so adjacent segments
+    always contrast. The last ``n_minor`` columns are drawn in greys so that
+    thin minority segments are not confused with the pale blues.
+    """
+    n_major = len(table.columns) - n_minor
+    shades = list(plt.cm.Blues([0.95 - 0.65 * i / max(n_major - 1, 1) for i in range(n_major)]))
+    shades += list(plt.cm.Greys([0.6 - 0.35 * i / max(n_minor - 1, 1) for i in range(n_minor)]))
+    years = [str(y) for y in table.index]
+    totals = table.sum(axis=1).values
+    fig, ax = plt.subplots(figsize=(7.5, 4.6))
+    bottom = pd.Series(0.0, index=table.index)
+    for col, shade in zip(table.columns, shades):
+        vals = table[col].astype(float)
+        ax.bar(years, vals, bottom=bottom.values, width=0.72, label=col,
+               color=shade, edgecolor="white", linewidth=0.8)
+        bottom += vals
+    for x, total in zip(years, totals):
+        ax.text(x, total + 0.6, f"{int(total)}", ha="center", va="bottom", fontsize=9, fontweight="bold")
+    ax.set_ylim(0, totals.max() * 1.12)
+    ax.set_xlabel("Publication year", fontsize=11)
+    ax.set_ylabel(ylabel, fontsize=11)
+    ax.tick_params(labelsize=10)
+    ax.grid(axis="y", alpha=0.25)
+    ax.set_axisbelow(True)
+    handles, labels = ax.get_legend_handles_labels()
+    # Legend listed top-to-bottom in the same order as the stack.
+    ax.legend(handles[::-1], labels[::-1], fontsize=8, loc="upper left", framealpha=0.9)
     fig.tight_layout()
     fig.savefig(out_path, bbox_inches="tight")
     plt.close(fig)
@@ -327,6 +362,46 @@ def task_dataset_analyses(df: pd.DataFrame) -> None:
         "NLP task family",
         "Encoding family",
     )
+
+    # (2b) Encoding family x model family crosstab (same layout as (2)).
+    model_order = [
+        ("vqc", "VQC"),
+        ("compositional", "Compositional"),
+        ("hybrid_nn", "Hybrid NN"),
+        ("quantum_transformer", "Quantum transformer"),
+        ("quantum_kernel", "Quantum kernel"),
+        ("recurrent_nn", "Recurrent NN"),
+    ]
+    model_labels = dict(model_order)
+    enc_model = pd.DataFrame(0, index=[lbl for _, lbl in enc_order], columns=[lbl for _, lbl in model_order])
+    for _, row in df.iterrows():
+        enc = enc_labels.get(str(row["encoding"]).strip())
+        model = model_labels.get(str(row["model_family"]).strip())
+        if enc is None or model is None:
+            continue
+        enc_model.loc[enc, model] += 1
+    enc_model.to_csv(OUT_DIR / "encoding_x_model_family_counts.csv")
+    save_paper_heatmap(
+        enc_model,
+        FIG_DIR / "encoding_by_model_family.pdf",
+        "Model family",
+        "Encoding family",
+    )
+
+    # (2c) Encoding family and model family by year (stacked bars, paper figures).
+    years = sorted(df["Publication Year"].unique())
+    year_enc = pd.DataFrame(0, index=years, columns=[lbl for _, lbl in enc_order])
+    year_model = pd.DataFrame(0, index=years, columns=[model_labels[k] for k in (
+        "compositional", "vqc", "hybrid_nn", "quantum_transformer", "quantum_kernel", "recurrent_nn")])
+    for _, row in df.iterrows():
+        enc = enc_labels.get(str(row["encoding"]).strip())
+        model = model_labels.get(str(row["model_family"]).strip())
+        if enc is not None:
+            year_enc.loc[row["Publication Year"], enc] += 1
+        if model is not None:
+            year_model.loc[row["Publication Year"], model] += 1
+    save_paper_stacked(year_enc, FIG_DIR / "encoding_by_year.pdf", "Number of studies (per encoding family)", n_minor=3)
+    save_paper_stacked(year_model, FIG_DIR / "model_family_by_year.pdf", "Number of studies (per model family)", n_minor=2)
 
     # (3) Dataset reuse after alias normalization.
     ds_counts = collections.Counter(d for names in df["datasets_norm"] for d in names)

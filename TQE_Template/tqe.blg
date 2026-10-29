@@ -9,59 +9,51 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-Reallocating 'field_info' (item size: 4) to 11670 items.
+Reallocating 'field_info' (item size: 4) to 11716 items.
 Database file #1: references.bib
-Warning--string name "june" is undefined
---line 2811 of file references.bib
-Warning--string name "june" is undefined
---line 2897 of file references.bib
-Warning--string name "july" is undefined
---line 2921 of file references.bib
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
-Warning--empty journal in suleiman_hdqe_2026
 
 Done.
-You've used 145 entries,
+You've used 146 entries,
             4087 wiz_defined-function locations,
-            1620 strings with 47950 characters,
-and the built_in function-call counts, 122357 in all, are:
-= -- 10402
-> -- 3051
-< -- 888
-+ -- 1576
-- -- 595
-* -- 6202
-:= -- 18832
-add.period$ -- 298
-call.type$ -- 145
-change.case$ -- 222
-chr.to.int$ -- 1965
+            1513 strings with 41561 characters,
+and the built_in function-call counts, 114603 in all, are:
+= -- 9109
+> -- 3150
+< -- 884
++ -- 1692
+- -- 633
+* -- 5551
+:= -- 16713
+add.period$ -- 300
+call.type$ -- 146
+change.case$ -- 146
+chr.to.int$ -- 1944
 cite$ -- 146
-duplicate$ -- 8677
-empty$ -- 9310
-format.name$ -- 703
-if$ -- 28437
+duplicate$ -- 8368
+empty$ -- 9244
+format.name$ -- 730
+if$ -- 26850
 int.to.chr$ -- 0
-int.to.str$ -- 145
-missing$ -- 1590
-newline$ -- 662
-num.names$ -- 145
-pop$ -- 3461
+int.to.str$ -- 146
+missing$ -- 1548
+newline$ -- 465
+num.names$ -- 146
+pop$ -- 3647
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 9666
+skip$ -- 8884
 stack$ -- 0
-substring$ -- 5252
-swap$ -- 7197
-text.length$ -- 233
+substring$ -- 4922
+swap$ -- 6779
+text.length$ -- 236
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 145
-warning$ -- 1
-while$ -- 459
-width$ -- 148
-write$ -- 1796
-(There were 4 warnings)
+type$ -- 146
+warning$ -- 0
+while$ -- 491
+width$ -- 149
+write$ -- 1430

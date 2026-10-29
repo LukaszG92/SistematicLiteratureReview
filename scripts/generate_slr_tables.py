@@ -156,7 +156,7 @@ def corpus_table():
     for i, ch in enumerate(chunks, 1):
         parts.append(
             "\\begin{table*}[p]\n"
-            f"\\caption{{Classification of the final primary corpus under the encoding comparison framework (part {i} of {len(chunks)}): "
+            f"\\caption{{Classification of the final corpus under the encoding classification scheme (part {i} of {len(chunks)}): "
             "study, model family, encoding family, qubit count, primary dataset, and hardware backend. "
             "Generated from the released extraction sheet by scripts/generate\\_slr\\_tables.py.}\n"
             f"\\label{{tab:corpus_classification_{i}}}\n"

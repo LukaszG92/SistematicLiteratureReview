@@ -1,0 +1,8 @@
+,VQC,Compositional,Hybrid NN,Quantum transformer,Quantum kernel,Recurrent NN
+Angle,20,0,10,9,2,10
+Amplitude,15,0,3,4,5,1
+Syntactic/DisCoCat,0,29,0,0,0,0
+Structured feature map,1,0,1,1,6,0
+Data re-uploading,3,0,0,0,0,1
+Hybrid embedding,2,0,1,0,0,0
+Hamiltonian/observable,1,0,0,0,0,0
